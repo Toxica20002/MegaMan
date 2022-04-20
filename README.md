@@ -6,3 +6,15 @@
 **Lâm Quốc Dinh - ITITIU20002**       
 **Châu Thị Thanh Trúc- ITITIU20327**  
 **Dương Khánh Duy - ITITIU20194**  
+
+**Reference:** 
+- [Github](https://github.com/phamngocthachlt6c/rockman/tree/master/src/com/gamestudio)
+
+## Regarding the file directory of the reposition
+**READ CAREFULLY!**  
+
+**.idea** folder is not important at all so ignore it   
+
+**data** folder is in **rockman\data**  which contain sprites, sounds and backdrops.
+
+**rockman\src\com.gamestudio\...** should be the folder of all classes from the game
