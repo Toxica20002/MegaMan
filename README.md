@@ -17,4 +17,4 @@
 
 **data** folder is in **rockman\data**  which contain sprites, sounds and backdrops.
 
-**rockman\src\com.gamestudio\...** should be the folder of all classes from the game
+**rockman\src\com.gamestudio\...** should be the folder of all classes from the game.
