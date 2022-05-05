@@ -73,7 +73,7 @@ public class GameWorldState extends State {
     public GameWorldState(GamePanel gamePanel){
             super(gamePanel);
         
-        texts1[0] = "We are heros, and our mission is protecting our Home\nEarth....";
+        texts1[0] = "We are heroes, and our mission is protecting our Home\nEarth....";
         texts1[1] = "There was a Monster from University on Earth in 10 years\n"
                 + "and we lived in the scare in that 10 years....";
         texts1[2] = "Now is the time for us, kill it and get freedom!....";
