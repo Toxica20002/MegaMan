@@ -17,12 +17,14 @@ import java.awt.Rectangle;
  */
 public class PhysicalMap extends GameObject{
 
-    public int[][] phys_map;
+    public int[][][] phys_map;
     private int tileSize;
+    private int round;
     
-    public PhysicalMap(float x, float y, GameWorldState gameWorld) {
+    public PhysicalMap(float x, float y, int round, GameWorldState gameWorld) {
         super(x, y, gameWorld);
         this.tileSize = 30;
+        this.round = round;
         phys_map = CacheDataLoader.getInstance().getPhysicalMap();
     }
     
@@ -46,12 +48,12 @@ public class PhysicalMap extends GameObject{
 
         if(posX1 < 0) posX1 = 0;
         
-        if(posX2 >= phys_map[0].length) posX2 = phys_map[0].length - 1;
+        if(posX2 >= phys_map[round - 1][0].length) posX2 = phys_map[round - 1][0].length - 1;
         
         for(int y = posY; y >= 0; y--){
             for(int x = posX1; x <= posX2; x++){
                 
-                if(phys_map[y][x] == 1){
+                if(phys_map[round - 1][y][x] == 1){
                     Rectangle r = new Rectangle((int) getPosX() + x * tileSize, (int) getPosY() + y * tileSize, tileSize, tileSize);
                     if(rect.intersects(r))
                         return r;
@@ -73,11 +75,11 @@ public class PhysicalMap extends GameObject{
 
         if(posX1 < 0) posX1 = 0;
         
-        if(posX2 >= phys_map[0].length) posX2 = phys_map[0].length - 1;
-        for(int y = posY; y < phys_map.length;y++){
+        if(posX2 >= phys_map[round - 1][0].length) posX2 = phys_map[round - 1][0].length - 1;
+        for(int y = posY; y < phys_map[round - 1].length;y++){
             for(int x = posX1; x <= posX2; x++){
                 
-                if(phys_map[y][x] == 1){
+                if(phys_map[round - 1][y][x] == 1){
                     Rectangle r = new Rectangle((int) getPosX() + x * tileSize, (int) getPosY() + y * tileSize, tileSize, tileSize);
                     if(rect.intersects(r))
                         return r;
@@ -97,15 +99,15 @@ public class PhysicalMap extends GameObject{
         
         int posX1 = (rect.x + rect.width)/tileSize;
         int posX2 = posX1 + 3;
-        if(posX2 >= phys_map[0].length) posX2 = phys_map[0].length - 1;
+        if(posX2 >= phys_map[round - 1][0].length) posX2 = phys_map[round - 1][0].length - 1;
         
         if(posY1 < 0) posY1 = 0;
-        if(posY2 >= phys_map.length) posY2 = phys_map.length - 1;
+        if(posY2 >= phys_map[round - 1].length) posY2 = phys_map[round - 1].length - 1;
         
         
         for(int x = posX1; x <= posX2; x++){
             for(int y = posY1; y <= posY2;y++){
-                if(phys_map[y][x] == 1){
+                if(phys_map[round - 1][y][x] == 1){
                     Rectangle r = new Rectangle((int) getPosX() + x * tileSize, (int) getPosY() + y * tileSize, tileSize, tileSize);
                     if(r.y < rect.y + rect.height - 1 && rect.intersects(r))
                         return r;
@@ -130,12 +132,12 @@ public class PhysicalMap extends GameObject{
         if(posX2 < 0) posX2 = 0;
         
         if(posY1 < 0) posY1 = 0;
-        if(posY2 >= phys_map.length) posY2 = phys_map.length - 1;
+        if(posY2 >= phys_map[round - 1].length) posY2 = phys_map[round - 1].length - 1;
         
         
         for(int x = posX1; x >= posX2; x--){
             for(int y = posY1; y <= posY2;y++){
-                if(phys_map[y][x] == 1){
+                if(phys_map[round - 1][y][x] == 1){
                     Rectangle r = new Rectangle((int) getPosX() + x * tileSize, (int) getPosY() + y * tileSize, tileSize, tileSize);
                     if(r.y < rect.y + rect.height - 1 && rect.intersects(r))
                         return r;
@@ -151,9 +153,9 @@ public class PhysicalMap extends GameObject{
         Camera camera = getGameWorld().camera;
         
         g2.setColor(Color.GRAY);
-        for(int i = 0;i< phys_map.length;i++)
-            for(int j = 0;j<phys_map[0].length;j++)
-                if(phys_map[i][j]!=0) g2.fillRect((int) getPosX() + j*tileSize - (int) camera.getPosX(), 
+        for(int i = 0;i< phys_map[round - 1].length;i++)
+            for(int j = 0;j<phys_map[round - 1][0].length;j++)
+                if(phys_map[round - 1][i][j]!=0) g2.fillRect((int) getPosX() + j*tileSize - (int) camera.getPosX(),
                         (int) getPosY() + i*tileSize - (int) camera.getPosY(), tileSize, tileSize);
         
     }

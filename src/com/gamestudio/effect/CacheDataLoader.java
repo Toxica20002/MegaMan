@@ -36,8 +36,8 @@ public class CacheDataLoader {
     private Hashtable<String, Animation> animations;
     private Hashtable<String, AudioClip> sounds;
     
-    private int[][] phys_map;
-    private int[][] background_map;
+    private int[][][] phys_map;
+    private int[][][] background_map;
     
     private CacheDataLoader() {}
 
@@ -65,11 +65,11 @@ public class CacheDataLoader {
 
     }
     
-    public int[][] getPhysicalMap(){
+    public int[][][] getPhysicalMap(){
         return instance.phys_map;
     }
     
-    public int[][] getBackgroundMap(){
+    public int[][][] getBackgroundMap(){
         return instance.background_map;
     }
     
@@ -77,8 +77,8 @@ public class CacheDataLoader {
         
         LoadFrame();
         LoadAnimation();
-        LoadPhysMap();
         LoadBackgroundMap();
+        LoadPhysMap();
         LoadSounds();
         
     }
@@ -134,29 +134,35 @@ public class CacheDataLoader {
         BufferedReader br = new BufferedReader(fr);
         
         String line = null;
-        
+
         line = br.readLine();
-        int numberOfRows = Integer.parseInt(line);
-        line = br.readLine();
-        int numberOfColumns = Integer.parseInt(line);
+        int numberOfRounds = Integer.parseInt(line);
             
         
-        instance.background_map = new int[numberOfRows][numberOfColumns];
-        
-        for(int i = 0;i < numberOfRows;i++){
+        instance.background_map = new int[numberOfRounds][][];
+
+        for (int t = 0; t < numberOfRounds; t++){
             line = br.readLine();
-            String [] str = line.split(" |  ");
-            for(int j = 0;j<numberOfColumns;j++)
-                instance.background_map[i][j] = Integer.parseInt(str[j]);
+            int numberOfRows = Integer.parseInt(line);
+            line = br.readLine();
+            int numberOfColumns = Integer.parseInt(line);
+            instance.background_map[t] = new int[numberOfRows][numberOfColumns];
+            for(int i = 0;i < numberOfRows;i++){
+                line = br.readLine();
+                String [] str = line.split(" |  ");
+                for(int j = 0;j<numberOfColumns;j++)
+                    instance.background_map[t][i][j] = Integer.parseInt(str[j]);
+            }
+            for(int i = 0;i < numberOfRows;i++){
+
+                for(int j = 0;j<numberOfColumns;j++)
+                    System.out.print(" "+instance.background_map[t][i][j]);
+
+                System.out.println();
+            }
         }
-        
-        for(int i = 0;i < numberOfRows;i++){
-            
-            for(int j = 0;j<numberOfColumns;j++)
-                System.out.print(" "+instance.background_map[i][j]);
-            
-            System.out.println();
-        }
+
+
         
         br.close();
         
@@ -168,29 +174,35 @@ public class CacheDataLoader {
         BufferedReader br = new BufferedReader(fr);
         
         String line = null;
-        
+
         line = br.readLine();
-        int numberOfRows = Integer.parseInt(line);
-        line = br.readLine();
-        int numberOfColumns = Integer.parseInt(line);
-            
+        int numberOfRounds = Integer.parseInt(line);
+
         
-        instance.phys_map = new int[numberOfRows][numberOfColumns];
-        
-        for(int i = 0;i < numberOfRows;i++){
+        instance.phys_map = new int[numberOfRounds][][];
+
+        for (int t = 0; t < numberOfRounds; t++){
             line = br.readLine();
-            String [] str = line.split(" ");
-            for(int j = 0;j<numberOfColumns;j++)
-                instance.phys_map[i][j] = Integer.parseInt(str[j]);
+            int numberOfRows = Integer.parseInt(line);
+            line = br.readLine();
+            int numberOfColumns = Integer.parseInt(line);
+            instance.phys_map[t] = new int[numberOfRows][numberOfColumns];
+
+            for(int i = 0;i < numberOfRows;i++){
+                line = br.readLine();
+                String [] str = line.split(" ");
+                for(int j = 0;j<numberOfColumns;j++)
+                    instance.phys_map[t][i][j] = Integer.parseInt(str[j]);
+            }
+            for(int i = 0;i < numberOfRows;i++){
+
+                for(int j = 0;j<numberOfColumns;j++)
+                    System.out.print(" "+instance.phys_map[t][i][j]);
+
+                System.out.println();
+            }
         }
-        
-        for(int i = 0;i < numberOfRows;i++){
-            
-            for(int j = 0;j<numberOfColumns;j++)
-                System.out.print(" "+instance.phys_map[i][j]);
-            
-            System.out.println();
-        }
+
         
         br.close();
         

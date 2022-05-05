@@ -20,7 +20,7 @@ import java.awt.image.BufferedImage;
  */
 public class MenuState extends State {
     
-    public final int NUMBER_OF_BUTTON = 2;
+    public final int NUMBER_OF_BUTTON = 3;
     private BufferedImage bufferedImage;
     Graphics graphicsPaint;
 
@@ -33,18 +33,18 @@ public class MenuState extends State {
         bufferedImage = new BufferedImage(GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
         
         buttons = new Button[NUMBER_OF_BUTTON];
-        buttons[0] = new RectangleButton("NEW GAME", 300, 100, 100, 40, 15, 25, Color.ORANGE);
+        buttons[0] = new RectangleButton("ROUND ONE", 300, 100, 150, 40, 15, 25, Color.ORANGE);
 		buttons[0].setHoverBgColor(Color.BLUE);
 		buttons[0].setPressedBgColor(Color.GREEN);
 
-//		buttons[1] = new RectangleButton("CONTINUE", 300, 160, 100, 40, 15, 25, Color.ORANGE);
-//		buttons[1].setHoverBgColor(Color.BLUE);
-//		buttons[1].setPressedBgColor(Color.GREEN);
-		
-
-		buttons[1] = new RectangleButton("EXIT", 300, 160, 100, 40, 15, 25, Color.ORANGE);
+		buttons[1] = new RectangleButton("ROUND TWO", 300, 160, 150, 40, 15, 25, Color.ORANGE);
 		buttons[1].setHoverBgColor(Color.BLUE);
 		buttons[1].setPressedBgColor(Color.GREEN);
+		
+
+		buttons[2] = new RectangleButton("EXIT", 300, 220, 150, 40, 15, 25, Color.ORANGE);
+		buttons[2].setHoverBgColor(Color.BLUE);
+		buttons[2].setPressedBgColor(Color.GREEN);
     }
     
     @Override
@@ -86,15 +86,13 @@ public class MenuState extends State {
         switch(code) {
             case KeyEvent.VK_DOWN:
                 buttonSelected++;
-                if(buttonSelected >= NUMBER_OF_BUTTON) {
-                    buttonSelected = 0;
-                }
+                buttonSelected %= 3;
                 break;
             case KeyEvent.VK_UP:
                 buttonSelected--;
-                if(buttonSelected < 0) {
-                    buttonSelected = NUMBER_OF_BUTTON - 1;
-                }
+                if (buttonSelected < 0){
+                    buttonSelected += 3;
+                };
                 break;
             case KeyEvent.VK_ENTER:
                 actionMenu();
@@ -108,10 +106,14 @@ public class MenuState extends State {
     private void actionMenu() {
         switch(buttonSelected) {
             case 0:
-                gamePanel.setState(new GameWorldState(gamePanel));
+                gamePanel.setState(new GameRoundOneState(gamePanel));
                 break;
-           
+
             case 1:
+                gamePanel.setState(new GameRoundTwoState(gamePanel));
+                break;
+
+            case 2:
                 System.exit(0);
                 break;
         }

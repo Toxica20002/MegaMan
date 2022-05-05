@@ -18,13 +18,15 @@ import java.awt.Graphics2D;
  */
 public class BackgroundMap extends GameObject {
 
-    public int[][] map;
+    public int[][][] map;
     private int tileSize;
+    private int round;
     
-    public BackgroundMap(float x, float y, GameWorldState gameWorld) {
+    public BackgroundMap(float x, float y, int round, GameWorldState gameWorld) {
         super(x, y, gameWorld);
         map = CacheDataLoader.getInstance().getBackgroundMap();
         tileSize = 30;
+        this.round = round;
     }
 
     @Override
@@ -35,11 +37,11 @@ public class BackgroundMap extends GameObject {
         Camera camera = getGameWorld().camera;
         
         g2.setColor(Color.RED);
-        for(int i = 0;i< map.length;i++)
-            for(int j = 0;j<map[0].length;j++)
-                if(map[i][j]!=0 && j*tileSize - camera.getPosX() > -30 && j*tileSize - camera.getPosX() < GameFrame.SCREEN_WIDTH
-                        && i*tileSize - camera.getPosY() > -30 && i*tileSize - camera.getPosY() < GameFrame.SCREEN_HEIGHT){ 
-                    g2.drawImage(CacheDataLoader.getInstance().getFrameImage("tiled"+map[i][j]).getImage(), (int) getPosX() + j*tileSize - (int) camera.getPosX(), 
+        for(int i = 0;i< map[round - 1].length;i++)
+            for(int j = 0;j<map[round - 1][0].length;j++)
+                if(map[round - 1][i][j]!=0 && j*tileSize - camera.getPosX() > -30 && j*tileSize - camera.getPosX() < GameFrame.SCREEN_WIDTH
+                        && i*tileSize - camera.getPosY() > -30 && i*tileSize - camera.getPosY() < GameFrame.SCREEN_HEIGHT){
+                    g2.drawImage(CacheDataLoader.getInstance().getFrameImage("tiled1_"+map[round - 1][i][j]).getImage(), (int) getPosX() + j*tileSize - (int) camera.getPosX(),
                         (int) getPosY() + i*tileSize - (int) camera.getPosY(), null);
                 }
         
