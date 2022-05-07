@@ -29,6 +29,19 @@ public class GameRoundTwoState extends GameWorldState {
         texts1[0] = "Hello\nHello....";
         textTutorial = texts1[0];
 
+        gateY = 14;
+        gateX = 120;
+        gateW = 1;
+        gateH = 4;
+
+        tileOfGate = 17;
+
+        tilesGate = new int[gateW][gateH];
+        for (int i = 0; i < gateW; i++) {
+            for (int j = 0; j < gateH; j++) {
+                tilesGate[i][j] = backgroundMap.map[round - 1][gateY + j][gateX + i];
+            }
+        }
 
     }
 
@@ -71,58 +84,5 @@ public class GameRoundTwoState extends GameWorldState {
 
     }
 
-    private void TutorialUpdate(){
-        switch(tutorialState){
-            case INTROGAME:
-
-                if(storyTutorial == 0){
-                    if(openIntroGameY < 450) {
-                        openIntroGameY+=4;
-                    }else storyTutorial ++;
-
-                }else{
-
-                    if(currentSize < textTutorial.length()) currentSize++;
-                }
-                break;
-            case MEETFINALBOSS:
-                if(storyTutorial == 0){
-                    if(openIntroGameY >= 450) {
-                        openIntroGameY-=1;
-                    }
-                    if(camera.getPosX() < finalBossX){
-                        camera.setPosX(camera.getPosX() + 2);
-                    }
-
-                    if(megaMan.getPosX() < finalBossX + 150){
-                        megaMan.setDirection(ParticularObject.RIGHT_DIR);
-                        megaMan.run();
-                        megaMan.Update();
-                    }else{
-                        megaMan.stopRun();
-                    }
-
-                    if(openIntroGameY < 450 && camera.getPosX() >= finalBossX && megaMan.getPosX() >= finalBossX + 150){
-                        camera.lock();
-                        storyTutorial++;
-                        megaMan.stopRun();
-                        physicalMap.phys_map[1][14][120] = 1;
-                        physicalMap.phys_map[1][15][120] = 1;
-                        physicalMap.phys_map[1][16][120] = 1;
-                        physicalMap.phys_map[1][17][120] = 1;
-
-                        backgroundMap.map[1][14][120] = 17;
-                        backgroundMap.map[1][15][120] = 17;
-                        backgroundMap.map[1][16][120] = 17;
-                        backgroundMap.map[1][17][120] = 17;
-                    }
-
-                }else{
-
-                    if(currentSize < textTutorial.length()) currentSize++;
-                }
-                break;
-        }
-    }
 
 }

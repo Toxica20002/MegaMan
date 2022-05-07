@@ -59,7 +59,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 
                     if(sleepTime > 0)
                             Thread.sleep(sleepTime/1000000);
-                    else Thread.sleep(period/2000000);
+//                    else Thread.sleep(period/2000000);
 
             }catch(Exception e){}
 

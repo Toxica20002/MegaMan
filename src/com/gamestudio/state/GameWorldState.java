@@ -68,6 +68,13 @@ public abstract class GameWorldState extends State {
     
     
     protected int numberOfLife = 3;
+
+    protected int gateX;
+    protected int gateY;
+    protected int gateW;
+    protected int gateH;
+    protected int[][] tilesGate;
+    protected int tileOfGate;
     
     public AudioClip bgMusic;
 
@@ -131,15 +138,23 @@ public abstract class GameWorldState extends State {
                         camera.lock();
                         storyTutorial++;
                         megaMan.stopRun();
-                        physicalMap.phys_map[0][14][120] = 1;
-                        physicalMap.phys_map[0][15][120] = 1;
-                        physicalMap.phys_map[0][16][120] = 1;
-                        physicalMap.phys_map[0][17][120] = 1;
-                        
-                        backgroundMap.map[0][14][120] = 17;
-                        backgroundMap.map[0][15][120] = 17;
-                        backgroundMap.map[0][16][120] = 17;
-                        backgroundMap.map[0][17][120] = 17;
+
+                        for (int i = 0; i < gateW; i++) {
+                            for (int j = 0; j < gateH; j++) {
+                                backgroundMap.map[round - 1][gateY + j][gateX + i] = tileOfGate;
+                                physicalMap.phys_map[round - 1][gateY + j][gateX + i] = 1;
+
+                            }
+                        }
+//                        physicalMap.phys_map[0][14][120] = 1;
+//                        physicalMap.phys_map[0][15][120] = 1;
+//                        physicalMap.phys_map[0][16][120] = 1;
+//                        physicalMap.phys_map[0][17][120] = 1;
+//
+//                        backgroundMap.map[0][14][120] = 17;
+//                        backgroundMap.map[0][15][120] = 17;
+//                        backgroundMap.map[0][16][120] = 17;
+//                        backgroundMap.map[0][17][120] = 17;
                     }
                     
                 }else{
@@ -402,15 +417,27 @@ public abstract class GameWorldState extends State {
                 
             case KeyEvent.VK_ENTER:
                 if(state == GAMEOVER || state == GAMEWIN) {
+                    for (int i = 0; i < gateW; i++) {
+                        for (int j = 0; j < gateH; j++) {
+                            backgroundMap.map[round - 1][gateY + j][gateX + i] = tilesGate[i][j];
+                            physicalMap.phys_map[round - 1][gateY + j][gateX + i] = 0;
+                        }
+                    }
 
-                    GameWorldState newState;
-                    if (round == 1) {
-                        newState = new GameRoundTwoState(gamePanel);
+                    if (state == GAMEWIN) {
+                        GameWorldState newState;
+                        if (round == 1) {
+                            newState = new GameRoundTwoState(gamePanel);
 
-                        gamePanel.setState(newState);
+                            gamePanel.setState(newState);
+                        } else {
+                            gamePanel.setState(new MenuState(gamePanel));
+                        }
                     } else {
                         gamePanel.setState(new MenuState(gamePanel));
                     }
+
+
 
 
                 } else if(state == PAUSEGAME) {
