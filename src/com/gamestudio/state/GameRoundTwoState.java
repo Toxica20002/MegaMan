@@ -13,14 +13,14 @@ import java.awt.image.BufferedImage;
 
 public class GameRoundTwoState extends GameWorldState {
 
-    public int round = 2;
-
     public static final int finalBossX = 3600;
 
     public AudioClip bgMusic;
 
     public GameRoundTwoState(GamePanel gamePanel){
         super(gamePanel);
+
+        round = 2;
 
         physicalMap = new PhysicalMap(0, 0, round, this);
         backgroundMap = new BackgroundMap(0, 0, round, this);

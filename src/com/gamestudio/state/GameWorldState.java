@@ -70,7 +70,7 @@ public abstract class GameWorldState extends State {
     protected int numberOfLife = 3;
     
     public AudioClip bgMusic;
-    
+
     public GameWorldState(GamePanel gamePanel){
             super(gamePanel);
 
@@ -266,7 +266,12 @@ public abstract class GameWorldState extends State {
                     g2.setColor(Color.BLACK);
                     g2.fillRect(0, 0, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT);
                     g2.setColor(Color.WHITE);
-                    g2.drawString("PRESS ENTER TO PLAY", 400, 300);
+                    if (round == 1) {
+                        g2.drawString("ROUND 1", GameFrame.SCREEN_WIDTH / 2 - 30, GameFrame.SCREEN_HEIGHT / 2 - 10);
+                    } else if (round == 2) {
+                        g2.drawString("ROUND 2", GameFrame.SCREEN_WIDTH / 2 - 30, GameFrame.SCREEN_HEIGHT / 2 - 10);
+                    }
+
                     break;
                 case PAUSEGAME:
                     g2.setColor(Color.BLACK);
@@ -397,7 +402,17 @@ public abstract class GameWorldState extends State {
                 
             case KeyEvent.VK_ENTER:
                 if(state == GAMEOVER || state == GAMEWIN) {
-                    gamePanel.setState(new MenuState(gamePanel));
+
+                    GameWorldState newState;
+                    if (round == 1) {
+                        newState = new GameRoundTwoState(gamePanel);
+
+                        gamePanel.setState(newState);
+                    } else {
+                        gamePanel.setState(new MenuState(gamePanel));
+                    }
+
+
                 } else if(state == PAUSEGAME) {
                     state = lastState;
                 }
