@@ -25,7 +25,7 @@ public class RedEyeDevil extends ParticularObject {
     private AudioClip shooting;
     
     public RedEyeDevil(float x, float y, GameWorldState gameWorld) {
-        super(x, y, 127, 89, 0, 100, gameWorld);
+        super(x, y, 127, 89, 0, 30, gameWorld);
         backAnim = CacheDataLoader.getInstance().getAnimation("redeye");
         forwardAnim = CacheDataLoader.getInstance().getAnimation("redeye");
         forwardAnim.flipAllImage();

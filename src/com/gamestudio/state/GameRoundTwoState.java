@@ -29,7 +29,9 @@ public class GameRoundTwoState extends GameWorldState {
         texts1[0] = "Hello\nHello....";
         textTutorial = texts1[0];
 
-        gateY = 14;
+        bossY = 1210;
+
+        gateY = 39;
         gateX = 120;
         gateW = 1;
         gateH = 4;
@@ -47,37 +49,42 @@ public class GameRoundTwoState extends GameWorldState {
 
     @Override
     public void initEnemies() {
-        ParticularObject redeye = new RedEyeDevil(1250, 410, this);
-        redeye.setDirection(ParticularObject.LEFT_DIR);
-        redeye.setTeamType(ParticularObject.ENEMY_TEAM);
-        particularObjectManager.addObject(redeye);
 
-        ParticularObject smallRedGun = new SmallRedGun(1600, 180, this);
+        ParticularObject smallRedGun = new SmallRedGun(600, 180, this);
         smallRedGun.setDirection(ParticularObject.LEFT_DIR);
         smallRedGun.setTeamType(ParticularObject.ENEMY_TEAM);
         particularObjectManager.addObject(smallRedGun);
 
-        ParticularObject darkraise = new DarkRaise(2000, 200, this);
+        ParticularObject smallRedGun2 = new SmallRedGun(3300, 1000, this);
+        smallRedGun2.setDirection(ParticularObject.LEFT_DIR);
+        smallRedGun2.setTeamType(ParticularObject.ENEMY_TEAM);
+        particularObjectManager.addObject(smallRedGun2);
+
+        ParticularObject darkraise = new DarkRaise(2700, 820, this);
         darkraise.setTeamType(ParticularObject.ENEMY_TEAM);
         particularObjectManager.addObject(darkraise);
 
 
-        ParticularObject robotR = new RobotR(900, 400, this);
-        robotR.setTeamType(ParticularObject.ENEMY_TEAM);
-        particularObjectManager.addObject(robotR);
+        ParticularObject darkraise2 = new DarkRaise(900, 650, this);
+        darkraise2.setTeamType(ParticularObject.ENEMY_TEAM);
+        particularObjectManager.addObject(darkraise2);
+
+        ParticularObject robotR2 = new RobotR(700, 1175, this);
+        robotR2.setTeamType(ParticularObject.ENEMY_TEAM);
+        particularObjectManager.addObject(robotR2);
 
 
-        ParticularObject redeye4 = new RedEyeDevil(500, 1190, this);
-        redeye4.setDirection(ParticularObject.RIGHT_DIR);
+        ParticularObject redeye4 = new RedEyeDevil(2000, 1120, this);
+        redeye4.setDirection(ParticularObject.LEFT_DIR);
         redeye4.setTeamType(ParticularObject.ENEMY_TEAM);
         particularObjectManager.addObject(redeye4);
 
 
-        ParticularObject darkraise3 = new DarkRaise(750, 650, this);
-        darkraise3.setTeamType(ParticularObject.ENEMY_TEAM);
-        particularObjectManager.addObject(darkraise3);
+//        ParticularObject darkraise3 = new DarkRaise(750, 650, this);
+//        darkraise3.setTeamType(ParticularObject.ENEMY_TEAM);
+//        particularObjectManager.addObject(darkraise3);
 
-        ParticularObject robotR3 = new RobotR(1500, 1150, this);
+        ParticularObject robotR3 = new RobotR(2900, 940, this);
         robotR3.setTeamType(ParticularObject.ENEMY_TEAM);
         particularObjectManager.addObject(robotR3);
 

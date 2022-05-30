@@ -15,7 +15,7 @@ public class RocketBullet extends Bullet{
     
     public RocketBullet(float x, float y, GameWorldState gameWorld) {
         
-            super(x, y, 30, 30, 1.0f, 10, gameWorld);
+            super(x, y, 30, 30, 1.0f, 20, gameWorld);
             
             backBulletAnimUp = CacheDataLoader.getInstance().getAnimation("rocketUp");
             backBulletAnimDown = CacheDataLoader.getInstance().getAnimation("rocketDown");
