@@ -28,7 +28,7 @@ public class RobotR extends ParticularObject {
     private AudioClip shooting;
     
     public RobotR(float x, float y, GameWorldState gameWorld) {
-        super(x, y, 127, 89, 0, 100, gameWorld);
+        super(x, y, 127, 89, 0, 30, gameWorld);
         backAnim = CacheDataLoader.getInstance().getAnimation("robotR");
         forwardAnim = CacheDataLoader.getInstance().getAnimation("robotR");
         forwardAnim.flipAllImage();

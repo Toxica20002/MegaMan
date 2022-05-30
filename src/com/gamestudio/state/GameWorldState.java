@@ -63,6 +63,7 @@ public abstract class GameWorldState extends State {
     
     protected boolean finalbossTrigger = true;
     ParticularObject boss;
+    int bossY;
     
     FrameImage avatar = CacheDataLoader.getInstance().getFrameImage("avatar");
     
@@ -228,7 +229,7 @@ public abstract class GameWorldState extends State {
                     storyTutorial = 0;
                     openIntroGameY = 550;
                     
-                    boss = new FinalBoss(finalBossX + 700, 460, this);
+                    boss = new FinalBoss(finalBossX + 700, bossY, this);
                     boss.setTeamType(ParticularObject.ENEMY_TEAM);
                     boss.setDirection(ParticularObject.LEFT_DIR);
                     particularObjectManager.addObject(boss);

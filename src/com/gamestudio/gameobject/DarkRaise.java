@@ -25,7 +25,7 @@ public class DarkRaise extends ParticularObject{
     private float x1, x2;
     
     public DarkRaise(float x, float y, GameWorldState gameWorld) {
-        super(x, y, 127, 89, 0, 100, gameWorld);
+        super(x, y, 127, 89, 0, 30, gameWorld);
         backAnim = CacheDataLoader.getInstance().getAnimation("darkraise");
         forwardAnim = CacheDataLoader.getInstance().getAnimation("darkraise");
         forwardAnim.flipAllImage();

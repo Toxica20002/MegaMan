@@ -24,7 +24,7 @@ public class SmallRedGun extends ParticularObject{
     private long startTimeToShoot;
     
     public SmallRedGun(float x, float y, GameWorldState gameWorld) {
-        super(x, y, 127, 89, 0, 100, gameWorld);
+        super(x, y, 127, 89, 0, 30, gameWorld);
         backAnim = CacheDataLoader.getInstance().getAnimation("smallredgun");
         forwardAnim = CacheDataLoader.getInstance().getAnimation("smallredgun");
         forwardAnim.flipAllImage();
