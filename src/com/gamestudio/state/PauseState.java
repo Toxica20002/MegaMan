@@ -119,6 +119,7 @@ public class PauseState extends State{
     public void setReleasedButton(int code) {
 
     }
+
     private void actionMenu() {
         switch(buttonSelected) {
             case 0: // resume
@@ -140,10 +141,10 @@ public class PauseState extends State{
                 }
                 else
                 {
-                    previous.bgMusic.stop();
                     previous.bgMusic.setVolume(1.0f);
-                    previous.bgMusic.play();
                 }
+                previous.bgMusic.stop();
+                previous.bgMusic.play();
                 break;
             case 3:// mute
                 previous.bgMusic.stop();
@@ -152,16 +153,14 @@ public class PauseState extends State{
             case 4: // minus volume
                 if(previous.bgMusic.getVolume()-0.2f >= 0.0f)
                 {
-                    previous.bgMusic.stop();
                     previous.bgMusic.setVolume(previous.bgMusic.getVolume()-0.2f);
-                    previous.bgMusic.play();
                 }
                 else
                 {
-                    previous.bgMusic.stop();
                     previous.bgMusic.setVolume(0.0f);
-                    previous.bgMusic.play();
                 }
+                previous.bgMusic.stop();
+                previous.bgMusic.play();
         }
     }
 
