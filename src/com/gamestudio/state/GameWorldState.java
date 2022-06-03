@@ -16,7 +16,10 @@ import com.gamestudio.gameobject.RobotR;
 import com.gamestudio.gameobject.SmallRedGun;
 import com.gamestudio.userinterface.GameFrame;
 import com.gamestudio.userinterface.GamePanel;
-import java.applet.AudioClip;
+
+
+
+import javafx.scene.media.AudioClip;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -58,6 +61,22 @@ public abstract class GameWorldState extends State {
     public int storyTutorial = 0;
     public String[] texts1;
 
+    public int getLastState() {
+        return lastState;
+    }
+
+    public void setLastState(int lastState) {
+        this.lastState = lastState;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
     public String textTutorial;
     public int currentSize = 1;
     
@@ -94,6 +113,8 @@ public abstract class GameWorldState extends State {
         initEnemies();
 
         bgMusic = CacheDataLoader.getInstance().getSound("bgmusic");
+        bgMusic.setCycleCount(AudioClip.INDEFINITE);
+        bgMusic.play();
         
     }
     
@@ -204,7 +225,19 @@ public abstract class GameWorldState extends State {
         }
     }
     
-    public abstract void Update();
+    public void Update()
+    {
+        switch (state) {
+            case GAMEOVER:
+                bgMusic.stop();
+                break;
+            case GAMEWIN:
+                bgMusic.stop();
+                break;
+        }
+
+
+    }
 
     public void Render(){
 
@@ -233,10 +266,7 @@ public abstract class GameWorldState extends State {
 
                     break;
                 case PAUSEGAME:
-                    g2.setColor(Color.BLACK);
-                    g2.fillRect(300, 260, 500, 70);
-                    g2.setColor(Color.WHITE);
-                    g2.drawString("PRESS ENTER TO CONTINUE", 400, 300);
+                    gamePanel.setState(new PauseState(gamePanel, this));
                     break;
                 case TUTORIAL:
                     backgroundMap.draw(g2);
@@ -272,6 +302,7 @@ public abstract class GameWorldState extends State {
                     g2.fillRect(0, 0, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT);
                     g2.setColor(Color.WHITE);
                     g2.drawString("GAME OVER!", 450, 300);
+                    bgMusic.stop();
                     break;
 
             }
@@ -309,7 +340,6 @@ public abstract class GameWorldState extends State {
                         switchState(GameWorldState.GAMEPLAY);
                     else switchState(GameWorldState.TUTORIAL);
                     
-                    bgMusic.loop();
                 }
                 if(state == GameWorldState.TUTORIAL && storyTutorial >= 1){
                     if(storyTutorial <= texts1.length - 1){

@@ -91,7 +91,7 @@ public class GameRoundTwoState extends GameWorldState {
 
     }
     public void Update(){
-
+        super.Update();
         switch(state){
             case INIT_GAME:
 

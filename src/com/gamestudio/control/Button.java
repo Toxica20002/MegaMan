@@ -22,6 +22,9 @@ public abstract class Button {
 	protected Color bgColor;
 	protected Color pressedBgColor;
 	protected Color hoverBgColor;
+
+	protected String activeImage;
+	protected String inactiveImage;
 	
 	public Button(String text, int posX, int posY, int width, int height, int paddingTextX, int paddingTextY,
 			Color bgColor) {
@@ -33,6 +36,14 @@ public abstract class Button {
 		this.paddingTextX = paddingTextX;
 		this.paddingTextY = paddingTextY;
 		this.bgColor = bgColor;
+		enabled = true;
+	}
+
+	public Button(int posX, int posY, String activeImage, String inactiveImage){
+		this.inactiveImage = inactiveImage;
+		this.activeImage = activeImage;
+		this.posX = posX;
+		this.posY = posY;
 		enabled = true;
 	}
 	
