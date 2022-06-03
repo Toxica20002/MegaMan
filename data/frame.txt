@@ -1,5 +1,5 @@
 
-208
+226
 
 idle1
 image data/megasprite.png
@@ -1498,3 +1498,129 @@ x 80
 y 60
 w 440
 h 60
+
+boss1_idle1
+image data/boss1.png 
+x 557
+y 137
+w 120
+h 112
+
+boss1_idle2
+image data/boss1.png 
+x 422
+y 155
+w 120
+h 97
+
+boss1_idle3
+image data/boss1.png 
+x 275
+y 152
+w 137
+h 105
+
+boss1_idle4
+image data/boss1.png 
+x 145
+y 152
+w 132
+h 107
+
+boss1_shooting1
+image data/boss1.png 
+x 690
+y 7
+w 127
+h 110
+
+boss1_shooting2
+image data/boss1.png 
+x 570
+y 10
+w 135
+h 110
+
+BubbleBullet1
+image data/boss1.png 
+x 237
+y 57
+w 30
+h 30
+
+BubbleBullet2
+image data/boss1.png 
+x 337
+y 52
+w 42
+h 35
+
+BubbleBullet3
+image data/boss1.png 
+x 395
+y 55
+w 50
+h 35
+
+BubbleBullet4
+image data/boss1.png 
+x 465
+y 50
+w 50
+h 47
+
+PrepareRoll1
+image data/boss1.png 
+x 17
+y 682
+w 140
+h 117
+
+PrepareRoll2
+image data/boss1.png 
+x 170
+y 672
+w 102
+h 132
+
+PrepareRoll3
+image data/boss1.png 
+x 297
+y 682
+w 80
+h 130
+
+PrepareRoll4
+image data/boss1.png 
+x 430
+y 710
+w 80
+h 92
+
+Rolled1
+image data/boss1.png 
+x 52
+y 827
+w 80
+h 80
+
+Rolled2
+image data/boss1.png 
+x 155
+y 820
+w 80
+h 80
+
+Rolled3
+image data/boss1.png 
+x 260
+y 817
+w 80
+h 82
+
+Rolled4
+image data/boss1.png 
+x 355
+y 822
+w 80
+h 65

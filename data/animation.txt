@@ -1,4 +1,4 @@
-27
+32
 idle
 idle1 70000000 idle2 70000000 idle3 70000000 idle2 70000000 idle1 1500000000
 
@@ -80,3 +80,18 @@ boss_shooting1 500000000 boss_shooting2 500000000
 
 boss_slide
 boss_slide1 500000000 boss_slide2 500000000 boss_slide3 500000000 boss_slide4 500000000 
+
+boss1_idle
+boss1_idle1 500000000 boss1_idle2 130000000 boss1_idle3 130000000 boss1_idle4 130000000 boss1_idle3 130000000 boss1_idle2 130000000
+
+boss1_shooting
+boss1_shooting1 500000000 boss1_shooting2 500000000
+
+BubbleBullet
+BubbleBullet1 70000000 BubbleBullet2 70000000 BubbleBullet3 70000000 BubbleBullet4 70000000
+
+PrepareRoll
+PrepareRoll1 500000000 PrepareRoll2 130000000 PrepareRoll3 130000000 PrepareRoll4 130000000
+
+Rolled
+Rolled1 500000000 Rolled2 500000000 Rolled3 500000000 Rolled4 500000000
