@@ -18,24 +18,29 @@ import java.awt.image.BufferedImage;
  *
  * @author phamn
  */
-public class MenuState extends State {
 
-    public final int NUMBER_OF_BUTTON = 3;
+
+/**
+ *  Dinh đã thêm
+ *
+ */
+
+public class RuleState extends State {
+
+    public final int NUMBER_OF_BUTTON = 2;
     private BufferedImage bufferedImage;
     Graphics graphicsPaint;
 
     private Button[] buttons;
     private int buttonSelected = 0;
 
-    public MenuState(GamePanel gamePanel) {
+    public RuleState(GamePanel gamePanel) {
         super(gamePanel);
         bufferedImage = new BufferedImage(GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
 
         buttons = new Button[NUMBER_OF_BUTTON];
-        buttons[0] = new MenuButton(200, 250, "data\\start_active.png", "data\\start_inactive.png");
-        buttons[1] = new MenuButton(200, 350, "data\\rules_active.png", "data\\rules_inactive.png");
-        buttons[2] = new MenuButton(200, 450, "data\\quit_active.png", "data\\quit_inactive.png");
-        //Dinh đã đổi
+        buttons[0] = new MenuButton(75, 480, "data\\start_active.png", "data\\start_inactive.png");
+        buttons[1] = new MenuButton(525, 480, "data\\return_active.png", "data\\return_inactive.png");
     }
 
     @Override
@@ -60,10 +65,10 @@ public class MenuState extends State {
             graphicsPaint = bufferedImage.getGraphics();
             return;
         }
-        Image image = Toolkit.getDefaultToolkit().getImage("data\\menu_bg.gif");
+        /*graphicsPaint.setColor(Color.CYAN);
+		graphicsPaint.fillRect(0, 0, bufferedImage.getWidth(), bufferedImage.getHeight());*/
+        Image image = Toolkit.getDefaultToolkit().getImage("data\\ruleScreen_background.png");
         graphicsPaint.drawImage(image, 0, 0, null);
-        //Dinh đã đổi
-
         for (Button bt : buttons) {
             bt.draw(graphicsPaint);
         }
@@ -77,14 +82,14 @@ public class MenuState extends State {
     @Override
     public void setPressedButton(int code) {
         switch (code) {
-            case KeyEvent.VK_DOWN -> {
+            case KeyEvent.VK_LEFT -> {
                 buttonSelected++;
-                buttonSelected %= 3;
+                buttonSelected %= 2;
             }
-            case KeyEvent.VK_UP -> {
+            case KeyEvent.VK_RIGHT -> {
                 buttonSelected--;
                 if (buttonSelected < 0) {
-                    buttonSelected += 3;
+                    buttonSelected += 2;
                 }
             }
             case KeyEvent.VK_ENTER -> actionMenu();
@@ -97,9 +102,7 @@ public class MenuState extends State {
     private void actionMenu() {
         switch (buttonSelected) {
             case 0 -> gamePanel.setState(new RoundState(gamePanel));
-            case 1 -> gamePanel.setState(new RuleState(gamePanel));
-            case 2 -> System.exit(0);
+            case 1 -> gamePanel.setState(new MenuState(gamePanel));
         }
-        //Dinh đã đổi
     }
 }

@@ -18,7 +18,12 @@ import java.awt.image.BufferedImage;
  *
  * @author phamn
  */
-public class MenuState extends State {
+
+/**
+ *  Dinh đã thêm
+ *
+ */
+public class RoundState extends State {
 
     public final int NUMBER_OF_BUTTON = 3;
     private BufferedImage bufferedImage;
@@ -27,15 +32,15 @@ public class MenuState extends State {
     private Button[] buttons;
     private int buttonSelected = 0;
 
-    public MenuState(GamePanel gamePanel) {
+    public RoundState(GamePanel gamePanel) {
         super(gamePanel);
         bufferedImage = new BufferedImage(GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
 
         buttons = new Button[NUMBER_OF_BUTTON];
-        buttons[0] = new MenuButton(200, 250, "data\\start_active.png", "data\\start_inactive.png");
-        buttons[1] = new MenuButton(200, 350, "data\\rules_active.png", "data\\rules_inactive.png");
-        buttons[2] = new MenuButton(200, 450, "data\\quit_active.png", "data\\quit_inactive.png");
-        //Dinh đã đổi
+        buttons[0] = new MenuButton(100, 250, "data\\round1_active.png", "data\\round1_inactive.png");
+        buttons[1] = new MenuButton(100, 350, "data\\round2_active.png", "data\\round2_inactive.png");
+        buttons[2] = new MenuButton(100, 450, "data\\return_active.png", "data\\return_inactive.png");
+
     }
 
     @Override
@@ -60,10 +65,8 @@ public class MenuState extends State {
             graphicsPaint = bufferedImage.getGraphics();
             return;
         }
-        Image image = Toolkit.getDefaultToolkit().getImage("data\\menu_bg.gif");
+        Image image = Toolkit.getDefaultToolkit().getImage("data\\menu_background.gif");
         graphicsPaint.drawImage(image, 0, 0, null);
-        //Dinh đã đổi
-
         for (Button bt : buttons) {
             bt.draw(graphicsPaint);
         }
@@ -96,10 +99,9 @@ public class MenuState extends State {
 
     private void actionMenu() {
         switch (buttonSelected) {
-            case 0 -> gamePanel.setState(new RoundState(gamePanel));
-            case 1 -> gamePanel.setState(new RuleState(gamePanel));
-            case 2 -> System.exit(0);
+            case 0 -> gamePanel.setState(new GameRoundOneState(gamePanel));
+            case 1 -> gamePanel.setState(new GameRoundTwoState(gamePanel));
+            case 2 -> gamePanel.setState(new MenuState(gamePanel));
         }
-        //Dinh đã đổi
     }
 }
