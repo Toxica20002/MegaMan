@@ -104,7 +104,7 @@ public abstract class GameWorldState extends State {
         this.state = state;
     }
     
-    private void TutorialUpdate(){
+    protected void TutorialUpdate(){
         switch(tutorialState){
             case INTROGAME:
                 
@@ -204,64 +204,7 @@ public abstract class GameWorldState extends State {
         }
     }
     
-    public void Update(){
-        
-        switch(state){
-            case INIT_GAME:
-                
-                break;
-            case TUTORIAL:
-                TutorialUpdate();
-                
-                break;
-            case GAMEPLAY:
-                particularObjectManager.UpdateObjects();
-                bulletManager.UpdateObjects();
-        
-                physicalMap.Update();
-                camera.Update();
-                
-                
-                if(megaMan.getPosX() > finalBossX && finalbossTrigger){
-                    finalbossTrigger = false;
-                    switchState(TUTORIAL);
-                    tutorialState = MEETFINALBOSS;
-                    storyTutorial = 0;
-                    openIntroGameY = 550;
-                    
-                    boss = new FinalBoss(finalBossX + 700, bossY, this);
-                    boss.setTeamType(ParticularObject.ENEMY_TEAM);
-                    boss.setDirection(ParticularObject.LEFT_DIR);
-                    particularObjectManager.addObject(boss);
-
-                }
-                
-                if(megaMan.getState() == ParticularObject.DEATH){
-                    numberOfLife --;
-                    if(numberOfLife > 0){
-                        megaMan.setBlood(100);
-                        megaMan.setPosY(megaMan.getPosY() - 50);
-                        megaMan.setState(ParticularObject.NOBEHURT);
-                        particularObjectManager.addObject(megaMan);
-                    }else{
-                        switchState(GAMEOVER);
-                        bgMusic.stop();
-                    }
-                }
-                if(!finalbossTrigger && boss.getState() == ParticularObject.DEATH)
-                    switchState(GAMEWIN);
-                
-                break;
-            case GAMEOVER:
-                
-                break;
-            case GAMEWIN:
-                
-                break;
-        }
-        
-
-    }
+    public abstract void Update();
 
     public void Render(){
 
