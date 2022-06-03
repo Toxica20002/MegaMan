@@ -113,7 +113,7 @@ public class GameRoundOneState extends GameWorldState {
 //        particularObjectManager.addObject(smallRedGun2);
     }
     public void Update(){
-
+        super.Update();
         switch(state){
             case INIT_GAME:
 

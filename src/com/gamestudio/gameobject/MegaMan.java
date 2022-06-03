@@ -3,13 +3,13 @@ package com.gamestudio.gameobject;
 import com.gamestudio.state.GameWorldState;
 import com.gamestudio.effect.Animation;
 import com.gamestudio.effect.CacheDataLoader;
-import java.applet.AudioClip;
+import javafx.scene.media.AudioClip;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 public class MegaMan extends Human {
 
-    public static final int RUNSPEED = 3;
+    public static final int RUNSPEED = 10;
     
     private Animation runForwardAnim, runBackAnim, runShootingForwarAnim, runShootingBackAnim;
     private Animation idleForwardAnim, idleBackAnim, idleShootingForwardAnim, idleShootingBackAnim;
@@ -242,8 +242,8 @@ public class MegaMan extends Human {
     @Override
     public void run() {
         if(getDirection() == LEFT_DIR)
-            setSpeedX(-3);
-        else setSpeedX(3);
+            setSpeedX(-RUNSPEED);
+        else setSpeedX(RUNSPEED);
     }
 
     @Override

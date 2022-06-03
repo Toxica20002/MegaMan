@@ -8,7 +8,7 @@ package com.gamestudio.gameobject;
 import com.gamestudio.state.GameWorldState;
 import com.gamestudio.effect.Animation;
 import com.gamestudio.effect.CacheDataLoader;
-import java.applet.AudioClip;
+import javafx.scene.media.AudioClip;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 

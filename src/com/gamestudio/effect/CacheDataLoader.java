@@ -1,7 +1,6 @@
 package com.gamestudio.effect;
 
-import java.applet.Applet;
-import java.applet.AudioClip;
+import javafx.scene.media.AudioClip;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
@@ -114,12 +113,9 @@ public class CacheDataLoader {
                 
                 String path = str[1];
 
-                try {
-                   audioClip =  Applet.newAudioClip(new URL("file","",str[1]));
-
-                } catch (MalformedURLException ex) {}
-                
+                audioClip =  new AudioClip(new File(path).toURI().toString());
                 instance.sounds.put(name, audioClip);
+                
             }
             
         }
@@ -153,13 +149,7 @@ public class CacheDataLoader {
                 for(int j = 0;j<numberOfColumns;j++)
                     instance.background_map[t][i][j] = Integer.parseInt(str[j]);
             }
-            for(int i = 0;i < numberOfRows;i++){
 
-                for(int j = 0;j<numberOfColumns;j++)
-                    System.out.print(" "+instance.background_map[t][i][j]);
-
-                System.out.println();
-            }
         }
 
 
@@ -193,13 +183,6 @@ public class CacheDataLoader {
                 String [] str = line.split(" ");
                 for(int j = 0;j<numberOfColumns;j++)
                     instance.phys_map[t][i][j] = Integer.parseInt(str[j]);
-            }
-            for(int i = 0;i < numberOfRows;i++){
-
-                for(int j = 0;j<numberOfColumns;j++)
-                    System.out.print(" "+instance.phys_map[t][i][j]);
-
-                System.out.println();
             }
         }
 
