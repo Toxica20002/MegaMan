@@ -26,4 +26,5 @@ public abstract class State {
     
     public abstract void setPressedButton(int code);
     public abstract void setReleasedButton(int code);
+    public abstract void setPressedMouse(int code);
 }

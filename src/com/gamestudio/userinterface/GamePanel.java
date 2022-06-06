@@ -1,18 +1,23 @@
 package com.gamestudio.userinterface;
 
-import com.gamestudio.state.GameWorldState;
 import com.gamestudio.state.MenuState;
 import com.gamestudio.state.State;
 
-
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 
 import javax.swing.JPanel;
 
-public class GamePanel extends JPanel implements Runnable, KeyListener{
+public class GamePanel extends JPanel implements Runnable, KeyListener, MouseListener, MouseMotionListener {
+
+    public static int mouseX;
+    public static int mouseY;
+
+    public static int statePanel = 1;
+
+    public static int inGame = 0;
+    public static int outGame = 1;
+    public static int loadingPage = 2;
 
     State gameState;
 
@@ -23,19 +28,15 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
     public boolean isRunning = true;
 
     public GamePanel(){
-
         gameState = new MenuState(this);
-//        gameState = new GameWorldState(this);
-        
         inputManager = new InputManager(gameState);
-
     }
 
     public void startGame(){
         gameThread = new Thread(this);
         gameThread.start();
     }
-    int a = 0;
+
     @Override
     public void run() {
 
@@ -46,22 +47,20 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
         long period = 1000000000/80;
 
         while(isRunning){
-
             gameState.Update();
             gameState.Render();
-
-
             repaint();
-
             currentTime = System.nanoTime();
             sleepTime = period - (currentTime - previousTime);
             try{
-
-                    if(sleepTime > 0)
-                            Thread.sleep(sleepTime/1000000);
-//                    else Thread.sleep(period/2000000);
-
-            }catch(Exception e){}
+                    if(sleepTime > 0){
+                        if(statePanel == inGame) Thread.sleep(sleepTime/1000000);
+                        else if(statePanel == outGame) Thread.sleep(sleepTime/250000);
+                        else if(statePanel == loadingPage) Thread.sleep(sleepTime/200000);
+                    }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
 
             previousTime = System.nanoTime();
         }
@@ -69,9 +68,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
     }
 
     public void paint(Graphics g){
-
         g.drawImage(gameState.getBufferedImage(), 0, 0, this);
-
     }
 
     @Override
@@ -91,5 +88,39 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
         gameState = state;
         inputManager.setState(state);
     }
-    
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+    @Override
+    public void mousePressed(MouseEvent e) {
+        inputManager.setPressedMouse(e.getButton());
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        mouseX = e.getX();
+        mouseY = e.getY();
+    }
 }

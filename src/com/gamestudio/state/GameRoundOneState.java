@@ -11,6 +11,8 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
+import static com.gamestudio.userinterface.GamePanel.*;
+
 public class GameRoundOneState extends GameWorldState {
 
     public static final int finalBossX = 3600;
@@ -19,7 +21,7 @@ public class GameRoundOneState extends GameWorldState {
 
     public GameRoundOneState(GamePanel gamePanel){
         super(gamePanel);
-
+        statePanel = inGame;
         round = 1;
 
         physicalMap = new PhysicalMap(0, 0, round, this);
@@ -116,6 +118,8 @@ public class GameRoundOneState extends GameWorldState {
         super.Update();
         switch(state){
             case INIT_GAME:
+            case GAMEOVER:
+            case GAMEWIN:
 
                 break;
             case TUTORIAL:
@@ -160,14 +164,13 @@ public class GameRoundOneState extends GameWorldState {
                     switchState(GAMEWIN);
 
                 break;
-            case GAMEOVER:
-
-                break;
-            case GAMEWIN:
-
-                break;
         }
 
+
+    }
+
+    @Override
+    public void setPressedMouse(int code) {
 
     }
 

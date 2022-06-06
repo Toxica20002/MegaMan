@@ -5,53 +5,36 @@
  */
 package com.gamestudio.state;
 
-import com.gamestudio.control.Button;
-import com.gamestudio.control.MenuButton;
+import com.gamestudio.control.newButton;
+import com.gamestudio.control.newRectangleButton;
 import com.gamestudio.userinterface.GameFrame;
 import com.gamestudio.userinterface.GamePanel;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-/**
- *
- * @author phamn
- */
-
-
-/**
- *  Dinh đã thêm
- *
- */
+import static com.gamestudio.userinterface.GamePanel.*;
 
 public class RuleState extends State {
 
-    public final int NUMBER_OF_BUTTON = 2;
+    public final int NUMBER_OF_BUTTON = 1;
     private BufferedImage bufferedImage;
     Graphics graphicsPaint;
 
-    private Button[] buttons;
-    private int buttonSelected = 0;
+    private newButton[] buttons;
 
     public RuleState(GamePanel gamePanel) {
         super(gamePanel);
+        statePanel = outGame;
         bufferedImage = new BufferedImage(GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
-
-        buttons = new Button[NUMBER_OF_BUTTON];
-        buttons[0] = new MenuButton(75, 480, "data\\start_active.png", "data\\start_inactive.png");
-        buttons[1] = new MenuButton(525, 480, "data\\return_active.png", "data\\return_inactive.png");
+        buttons = new newButton[NUMBER_OF_BUTTON];
+        buttons[0] = new newRectangleButton(525, 480, "data\\return_active.png", "data\\return_inactive.png", 0);
     }
 
     @Override
     public void Update() {
-        for(int i = 0;i<NUMBER_OF_BUTTON;i++) {
-            if(i == buttonSelected) {
-                buttons[i].setState(Button.HOVER);
-            } else {
-                buttons[i].setState(Button.NONE);
-            }
-        }
+
     }
 
     @Override
@@ -65,11 +48,10 @@ public class RuleState extends State {
             graphicsPaint = bufferedImage.getGraphics();
             return;
         }
-        /*graphicsPaint.setColor(Color.CYAN);
-		graphicsPaint.fillRect(0, 0, bufferedImage.getWidth(), bufferedImage.getHeight());*/
+
         Image image = Toolkit.getDefaultToolkit().getImage("data\\ruleScreen_background.png");
         graphicsPaint.drawImage(image, 0, 0, null);
-        for (Button bt : buttons) {
+        for (newButton bt : buttons) {
             bt.draw(graphicsPaint);
         }
     }
@@ -81,28 +63,20 @@ public class RuleState extends State {
 
     @Override
     public void setPressedButton(int code) {
-        switch (code) {
-            case KeyEvent.VK_LEFT -> {
-                buttonSelected++;
-                buttonSelected %= 2;
-            }
-            case KeyEvent.VK_RIGHT -> {
-                buttonSelected--;
-                if (buttonSelected < 0) {
-                    buttonSelected += 2;
-                }
-            }
-            case KeyEvent.VK_ENTER -> actionMenu();
-        }
+
     }
 
     @Override
     public void setReleasedButton(int code) {}
 
+    @Override
+    public void setPressedMouse(int code) {
+        if(code == MouseEvent.BUTTON1)
+            actionMenu();
+    }
+
     private void actionMenu() {
-        switch (buttonSelected) {
-            case 0 -> gamePanel.setState(new RoundState(gamePanel));
-            case 1 -> gamePanel.setState(new MenuState(gamePanel));
-        }
+        if(buttons[0].isInButton(mouseX, mouseY))
+            gamePanel.setState(new MenuState(gamePanel));
     }
 }

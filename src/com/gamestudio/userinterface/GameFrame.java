@@ -1,16 +1,15 @@
 package com.gamestudio.userinterface;
 
 import com.gamestudio.effect.CacheDataLoader;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.io.IOException;
 
+import java.awt.*;
+import java.io.IOException;
 import javax.swing.JFrame;
 
 public class GameFrame extends JFrame{
 
-    public static final int SCREEN_WIDTH = 1000;
-    public static final int SCREEN_HEIGHT = 600;
+    public static final int SCREEN_WIDTH = 1200;
+    public static final int SCREEN_HEIGHT = 650;
 
     GamePanel gamePanel;
 
@@ -31,22 +30,20 @@ public class GameFrame extends JFrame{
 
         gamePanel = new GamePanel();
         addKeyListener(gamePanel);
+        addMouseMotionListener(gamePanel);
+        addMouseListener(gamePanel);
         add(gamePanel);
-
     }
 
     public void startGame(){
-
-            gamePanel.startGame();
-            this.setVisible(true);
-
+        gamePanel.startGame();
+        this.setVisible(true);
     }
 
-    public static void main(String arg[]){
-
-            GameFrame gameFrame = new GameFrame();
-            gameFrame.startGame();
+    public static void main(String[] arg){
+        GameFrame gameFrame = new GameFrame();
+        gameFrame.startGame();
         // add sth
     }
-        
+
 }

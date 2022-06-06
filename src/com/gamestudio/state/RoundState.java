@@ -5,53 +5,45 @@
  */
 package com.gamestudio.state;
 
-import com.gamestudio.control.Button;
-import com.gamestudio.control.MenuButton;
+import com.gamestudio.control.newButton;
+import com.gamestudio.control.newRectangleButton;
 import com.gamestudio.userinterface.GameFrame;
 import com.gamestudio.userinterface.GamePanel;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+
+import static com.gamestudio.userinterface.GamePanel.*;
 
 /**
  *
  * @author phamn
  */
 
-/**
- *  Dinh đã thêm
- *
- */
 public class RoundState extends State {
 
     public final int NUMBER_OF_BUTTON = 3;
     private BufferedImage bufferedImage;
     Graphics graphicsPaint;
 
-    private Button[] buttons;
-    private int buttonSelected = 0;
+    private final newButton[] buttons;
 
     public RoundState(GamePanel gamePanel) {
         super(gamePanel);
+        statePanel = outGame;
         bufferedImage = new BufferedImage(GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
 
-        buttons = new Button[NUMBER_OF_BUTTON];
-        buttons[0] = new MenuButton(100, 250, "data\\round1_active.png", "data\\round1_inactive.png");
-        buttons[1] = new MenuButton(100, 350, "data\\round2_active.png", "data\\round2_inactive.png");
-        buttons[2] = new MenuButton(100, 450, "data\\return_active.png", "data\\return_inactive.png");
+        buttons = new newButton[NUMBER_OF_BUTTON];
+        buttons[0] = new newRectangleButton(100, 250, "data\\round1_active.png", "data\\round1_inactive.png", 0);
+        buttons[1] = new newRectangleButton(100, 350, "data\\round2_active.png", "data\\round2_inactive.png", 1);
+        buttons[2] = new newRectangleButton(100, 450, "data\\return_active.png", "data\\return_inactive.png", 2);
 
     }
 
     @Override
     public void Update() {
-        for(int i = 0;i<NUMBER_OF_BUTTON;i++) {
-            if(i == buttonSelected) {
-                buttons[i].setState(Button.HOVER);
-            } else {
-                buttons[i].setState(Button.NONE);
-            }
-        }
+
     }
 
     @Override
@@ -67,7 +59,7 @@ public class RoundState extends State {
         }
         Image image = Toolkit.getDefaultToolkit().getImage("data\\menu_background.gif");
         graphicsPaint.drawImage(image, 0, 0, null);
-        for (Button bt : buttons) {
+        for (newButton bt : buttons) {
             bt.draw(graphicsPaint);
         }
     }
@@ -79,29 +71,25 @@ public class RoundState extends State {
 
     @Override
     public void setPressedButton(int code) {
-        switch (code) {
-            case KeyEvent.VK_DOWN -> {
-                buttonSelected++;
-                buttonSelected %= 3;
-            }
-            case KeyEvent.VK_UP -> {
-                buttonSelected--;
-                if (buttonSelected < 0) {
-                    buttonSelected += 3;
-                }
-            }
-            case KeyEvent.VK_ENTER -> actionMenu();
-        }
+
     }
 
     @Override
     public void setReleasedButton(int code) {}
 
+    @Override
+    public void setPressedMouse(int code) {
+        if(code == MouseEvent.BUTTON1)
+            actionMenu();
+    }
+
     private void actionMenu() {
-        switch (buttonSelected) {
-            case 0 -> gamePanel.setState(new GameRoundOneState(gamePanel));
-            case 1 -> gamePanel.setState(new GameRoundTwoState(gamePanel));
-            case 2 -> gamePanel.setState(new MenuState(gamePanel));
-        }
+
+        if(buttons[0].isInButton(mouseX, mouseY))
+            gamePanel.setState(new FirstLoadingPage(gamePanel, 1));
+        else if(buttons[1].isInButton(mouseX, mouseY))
+            gamePanel.setState(new GameRoundTwoState(gamePanel));
+        else if(buttons[2].isInButton(mouseX, mouseY))
+            gamePanel.setState(new MenuState(gamePanel));
     }
 }

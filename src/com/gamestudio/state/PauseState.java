@@ -5,22 +5,24 @@ import com.gamestudio.control.RectangleButton;
 import com.gamestudio.userinterface.GameFrame;
 import com.gamestudio.userinterface.GamePanel;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
+import static com.gamestudio.userinterface.GamePanel.*;
+
 public class PauseState extends State{
-    private GameWorldState previous;
+    private final GameWorldState previous;
     public final int NUMBER_OF_BUTTON = 5;
     protected BufferedImage bufferedImage;
     private int buttonSelected = 0;
     GamePanel gamePanel;
-    private Button[] buttons;
+    private final Button[] buttons;
 
     public PauseState(GamePanel gamePanel, GameWorldState previous)
     {
         super(gamePanel);
+        statePanel = outGame;
         bufferedImage = new BufferedImage(GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
         this.previous= previous;
         this.gamePanel= gamePanel;
@@ -92,7 +94,7 @@ public class PauseState extends State{
                 buttonSelected--;
                 if (buttonSelected < 0){
                     buttonSelected += 3;
-                };
+                }
                 buttonSelected=Math.min(1,buttonSelected);
                 break;
             case KeyEvent.VK_LEFT:
@@ -120,6 +122,11 @@ public class PauseState extends State{
 
     }
 
+    @Override
+    public void setPressedMouse(int code) {
+
+    }
+
     private void actionMenu() {
         switch(buttonSelected) {
             case 0: // resume
@@ -129,7 +136,7 @@ public class PauseState extends State{
                 break;
 
             case 1: // menu
-                previous.setState(previous.GAMEOVER);
+                previous.setState(GameWorldState.GAMEOVER);
                 previous.setLastState(previous.getState());
                 gamePanel.setState(previous);
                 break;
@@ -162,14 +169,5 @@ public class PauseState extends State{
                 previous.bgMusic.stop();
                 previous.bgMusic.play();
         }
-    }
-
-    public void addVolume()
-    {
-
-    }
-    public void minusVolume()
-    {
-
     }
 }
