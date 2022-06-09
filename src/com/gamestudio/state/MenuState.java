@@ -5,48 +5,39 @@
  */
 package com.gamestudio.state;
 
-import com.gamestudio.control.Button;
-import com.gamestudio.control.MenuButton;
+import com.gamestudio.control.newButton;
+import com.gamestudio.control.newRectangleButton;
 import com.gamestudio.userinterface.GameFrame;
 import com.gamestudio.userinterface.GamePanel;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-/**
- *
- * @author phamn
- */
+import static com.gamestudio.userinterface.GamePanel.*;
+
 public class MenuState extends State {
 
-    public final int NUMBER_OF_BUTTON = 3;
+    protected final int NUMBER_OF_BUTTON = 3;
     private BufferedImage bufferedImage;
     Graphics graphicsPaint;
-
-    private Button[] buttons;
-    private int buttonSelected = 0;
-
+    private final newButton[] buttons;
+    protected long startQuitTime;
+    protected boolean quitState = false;
     public MenuState(GamePanel gamePanel) {
         super(gamePanel);
+        statePanel = outGame;
         bufferedImage = new BufferedImage(GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
 
-        buttons = new Button[NUMBER_OF_BUTTON];
-        buttons[0] = new MenuButton(200, 250, "data\\start_active.png", "data\\start_inactive.png");
-        buttons[1] = new MenuButton(200, 350, "data\\rules_active.png", "data\\rules_inactive.png");
-        buttons[2] = new MenuButton(200, 450, "data\\quit_active.png", "data\\quit_inactive.png");
-        //Dinh đã đổi
+        buttons = new newButton[NUMBER_OF_BUTTON];
+        buttons[0] = new newRectangleButton(200, 250, "data\\start_active.png", "data\\start_inactive.png");
+        buttons[1] = new newRectangleButton(200, 350, "data\\rules_active.png", "data\\rules_inactive.png");
+        buttons[2] = new newRectangleButton(200, 450, "data\\quit_active.png", "data\\quit_inactive.png");
     }
 
     @Override
     public void Update() {
-        for(int i = 0;i<NUMBER_OF_BUTTON;i++) {
-            if(i == buttonSelected) {
-                buttons[i].setState(Button.HOVER);
-            } else {
-                buttons[i].setState(Button.NONE);
-            }
-        }
+
     }
 
     @Override
@@ -60,12 +51,20 @@ public class MenuState extends State {
             graphicsPaint = bufferedImage.getGraphics();
             return;
         }
-        Image image = Toolkit.getDefaultToolkit().getImage("data\\menu_bg.gif");
-        graphicsPaint.drawImage(image, 0, 0, null);
-        //Dinh đã đổi
+        if(!quitState) {
+            Image image = Toolkit.getDefaultToolkit().getImage("data\\menu_bg.gif");
+            graphicsPaint.drawImage(image, 0, 0, null);
 
-        for (Button bt : buttons) {
-            bt.draw(graphicsPaint);
+
+            for (newButton bt : buttons) {
+                bt.draw(graphicsPaint);
+            }
+        }
+        else {
+            if(System.currentTimeMillis()-startQuitTime >= 4000)
+                System.exit(0);
+            Image image = Toolkit.getDefaultToolkit().getImage("data\\thanks.gif");
+            graphicsPaint.drawImage(image, 0, 0, null);
         }
     }
 
@@ -76,29 +75,27 @@ public class MenuState extends State {
 
     @Override
     public void setPressedButton(int code) {
-        switch (code) {
-            case KeyEvent.VK_DOWN -> {
-                buttonSelected++;
-                buttonSelected %= 3;
-            }
-            case KeyEvent.VK_UP -> {
-                buttonSelected--;
-                if (buttonSelected < 0) {
-                    buttonSelected += 3;
-                }
-            }
-            case KeyEvent.VK_ENTER -> actionMenu();
-        }
+
     }
 
     @Override
     public void setReleasedButton(int code) {}
 
+    @Override
+    public void setPressedMouse(int code) {
+        if(code == MouseEvent.BUTTON1) {
+            actionMenu();
+        }
+    }
+
     private void actionMenu() {
-        switch (buttonSelected) {
-            case 0 -> gamePanel.setState(new RoundState(gamePanel));
-            case 1 -> gamePanel.setState(new RuleState(gamePanel));
-            case 2 -> System.exit(0);
+        if(buttons[0].isInButton(mouseX, mouseY))
+            gamePanel.setState(new RoundState(gamePanel));
+        else if(buttons[1].isInButton(mouseX, mouseY))
+            gamePanel.setState(new RuleState(gamePanel));
+        else if(buttons[2].isInButton(mouseX, mouseY)) {
+            startQuitTime = System.currentTimeMillis();
+            quitState = true;
         }
         //Dinh đã đổi
     }

@@ -41,8 +41,11 @@ public class BackgroundMap extends GameObject {
             for(int j = 0;j<map[round - 1][0].length;j++)
                 if(map[round - 1][i][j]!=0 && j*tileSize - camera.getPosX() > -30 && j*tileSize - camera.getPosX() < GameFrame.SCREEN_WIDTH
                         && i*tileSize - camera.getPosY() > -30 && i*tileSize - camera.getPosY() < GameFrame.SCREEN_HEIGHT){
+
+                    g2.scale(1, 1);
                     g2.drawImage(CacheDataLoader.getInstance().getFrameImage("tiled"+ round + "_"+map[round - 1][i][j]).getImage(), (int) getPosX() + j*tileSize - (int) camera.getPosX(),
                         (int) getPosY() + i*tileSize - (int) camera.getPosY(), null);
+                    //g2.scale(1, 1);
                 }
         
     }

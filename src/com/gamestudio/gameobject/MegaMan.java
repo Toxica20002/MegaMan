@@ -9,7 +9,7 @@ import java.awt.Rectangle;
 
 public class MegaMan extends Human {
 
-    public static final int RUNSPEED = 3;
+    public static final int RUNSPEED = 5;
     
     private Animation runForwardAnim, runBackAnim, runShootingForwarAnim, runShootingBackAnim;
     private Animation idleForwardAnim, idleBackAnim, idleShootingForwardAnim, idleShootingBackAnim;

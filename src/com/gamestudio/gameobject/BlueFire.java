@@ -8,7 +8,8 @@ import java.awt.Rectangle;
 
 public class BlueFire extends Bullet{
 	
-    private Animation forwardBulletAnim, backBulletAnim;
+    private final Animation forwardBulletAnim;
+    private final Animation backBulletAnim;
     
     public BlueFire(float x, float y, GameWorldState gameWorld) {
         super(x, y, 60, 30, 1.0f, 10, gameWorld);
@@ -16,8 +17,6 @@ public class BlueFire extends Bullet{
         backBulletAnim = CacheDataLoader.getInstance().getAnimation("bluefire");
         backBulletAnim.flipAllImage();
     }
-
-    
     
     @Override
     public Rectangle getBoundForCollisionWithEnemy() {

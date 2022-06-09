@@ -2,11 +2,6 @@ package com.gamestudio.control;
 
 import java.awt.*;
 
-
-/*
-Dinh đã thêm
- */
-
 public class MenuButton extends Button {
 
     public MenuButton(int posX, int posY, String inactiveImage, String activeImage) {
@@ -34,4 +29,5 @@ public class MenuButton extends Button {
             }
         }
     }
+
 }

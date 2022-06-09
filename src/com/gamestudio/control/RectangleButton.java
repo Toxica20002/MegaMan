@@ -21,9 +21,9 @@ public class RectangleButton extends Button {
 	public void draw(Graphics g) {
 		if(enabled) {
 			switch (state) {
-				case NONE: g.setColor(bgColor); break;
-				case PRESSED: g.setColor(pressedBgColor); break;
-				case HOVER: g.setColor(hoverBgColor); break;
+				case NONE -> g.setColor(bgColor);
+				case PRESSED -> g.setColor(pressedBgColor);
+				case HOVER -> g.setColor(hoverBgColor);
 			}
 		} else {
 			g.setColor(Color.GRAY);

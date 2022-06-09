@@ -11,31 +11,23 @@ import com.gamestudio.userinterface.GameFrame;
 import com.gamestudio.userinterface.GamePanel;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
-import static com.gamestudio.userinterface.GamePanel.*;
 
-public class RuleState extends State {
-
-    protected final int NUMBER_OF_BUTTON = 1;
+public class RandomLoadingPage extends State {
     private BufferedImage bufferedImage;
     Graphics graphicsPaint;
+    protected int round;
 
-    private newButton[] buttons;
-
-    public RuleState(GamePanel gamePanel) {
+    public RandomLoadingPage(GamePanel gamePanel, int round) {
         super(gamePanel);
-        statePanel = outGame;
         bufferedImage = new BufferedImage(GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
-        buttons = new newButton[NUMBER_OF_BUTTON];
-        buttons[0] = new newRectangleButton(525, 480, "data\\return_active.png", "data\\return_inactive.png");
+        this.round = round;
     }
 
     @Override
-    public void Update() {
-
-    }
+    public void Update() {}
 
     @Override
     public void Render() {
@@ -46,14 +38,8 @@ public class RuleState extends State {
         graphicsPaint = bufferedImage.getGraphics();
         if(graphicsPaint == null) {
             graphicsPaint = bufferedImage.getGraphics();
-            return;
         }
-
-        Image image = Toolkit.getDefaultToolkit().getImage("data\\ruleScreen_background.png");
-        graphicsPaint.drawImage(image, 0, 0, null);
-        for (newButton bt : buttons) {
-            bt.draw(graphicsPaint);
-        }
+        actionMenu();
     }
 
     @Override
@@ -70,13 +56,14 @@ public class RuleState extends State {
     public void setReleasedButton(int code) {}
 
     @Override
-    public void setPressedMouse(int code) {
-        if(code == MouseEvent.BUTTON1)
-            actionMenu();
-    }
+    public void setPressedMouse(int code) {}
 
-    private void actionMenu() {
-        if(buttons[0].isInButton(mouseX, mouseY))
-            gamePanel.setState(new MenuState(gamePanel));
+    private void actionMenu(){
+        Random generator = new Random();
+        int idLoadingPage = generator.nextInt(2);
+        switch (idLoadingPage){
+            case 0 -> gamePanel.setState(new FirstLoadingPage(gamePanel, round));
+            case 1 -> gamePanel.setState(new SecondLoadingPage(gamePanel, round));
+        }
     }
 }

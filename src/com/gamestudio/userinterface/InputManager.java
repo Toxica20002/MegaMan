@@ -5,16 +5,14 @@
  */
 package com.gamestudio.userinterface;
 
-import com.gamestudio.state.GameWorldState;
 import com.gamestudio.state.State;
-import java.awt.event.KeyEvent;
+
 
 /**
  *
  * @author phamn
  */
 public class InputManager {
-    
     private State gameState;
     
     public InputManager(State state){
@@ -32,5 +30,6 @@ public class InputManager {
     public void setReleasedButton(int code){
         gameState.setReleasedButton(code);
     }
-    
+
+    public void setPressedMouse(int code){ gameState.setPressedMouse(code);}
 }

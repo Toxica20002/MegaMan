@@ -5,23 +5,18 @@ import com.gamestudio.effect.FrameImage;
 import com.gamestudio.gameobject.BackgroundMap;
 import com.gamestudio.gameobject.BulletManager;
 import com.gamestudio.gameobject.Camera;
-import com.gamestudio.gameobject.DarkRaise;
-import com.gamestudio.gameobject.FinalBoss;
 import com.gamestudio.gameobject.MegaMan;
 import com.gamestudio.gameobject.ParticularObject;
 import com.gamestudio.gameobject.ParticularObjectManager;
 import com.gamestudio.gameobject.PhysicalMap;
-import com.gamestudio.gameobject.RedEyeDevil;
-import com.gamestudio.gameobject.RobotR;
-import com.gamestudio.gameobject.SmallRedGun;
 import com.gamestudio.userinterface.GameFrame;
 import com.gamestudio.userinterface.GamePanel;
 
 
 
 import javafx.scene.media.AudioClip;
-import java.awt.Color;
-import java.awt.Graphics2D;
+
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
@@ -80,7 +75,7 @@ public abstract class GameWorldState extends State {
     public String textTutorial;
     public int currentSize = 1;
     
-    protected boolean finalbossTrigger = true;
+    protected boolean finalbossTrigger= true;
     ParticularObject boss;
     int bossY;
     
@@ -168,15 +163,7 @@ public abstract class GameWorldState extends State {
 
                             }
                         }
-//                        physicalMap.phys_map[0][14][120] = 1;
-//                        physicalMap.phys_map[0][15][120] = 1;
-//                        physicalMap.phys_map[0][16][120] = 1;
-//                        physicalMap.phys_map[0][17][120] = 1;
-//
-//                        backgroundMap.map[0][14][120] = 17;
-//                        backgroundMap.map[0][15][120] = 17;
-//                        backgroundMap.map[0][16][120] = 17;
-//                        backgroundMap.map[0][17][120] = 17;
+
                     }
                     
                 }else{
@@ -228,12 +215,7 @@ public abstract class GameWorldState extends State {
     public void Update()
     {
         switch (state) {
-            case GAMEOVER:
-                bgMusic.stop();
-                break;
-            case GAMEWIN:
-                bgMusic.stop();
-                break;
+            case GAMEOVER, GAMEWIN -> bgMusic.stop();
         }
 
 
@@ -244,67 +226,54 @@ public abstract class GameWorldState extends State {
         Graphics2D g2 = (Graphics2D) bufferedImage.getGraphics();
 
         if(g2!=null){
-
-            // NOTE: two lines below make the error splash white screen....
-            // need to remove this line
-            //g2.setColor(Color.WHITE);
-            //g2.fillRect(0, 0, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT);
-            
-            
-            //physicalMap.draw(g2);
-            
-            switch(state){
-                case INIT_GAME:
+            switch (state) {
+                case INIT_GAME -> {
                     g2.setColor(Color.BLACK);
                     g2.fillRect(0, 0, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT);
                     g2.setColor(Color.WHITE);
                     if (round == 1) {
-                        g2.drawString("ROUND 1", GameFrame.SCREEN_WIDTH / 2 - 30, GameFrame.SCREEN_HEIGHT / 2 - 10);
+                        g2.setFont(pixel);
+                        g2.setColor(Color.WHITE);
+                        g2.drawString("ROUND 1", GameFrame.SCREEN_WIDTH/2-80, GameFrame.SCREEN_HEIGHT / 2-30);
+                        g2.drawString("(Press Enter to Continue)", GameFrame.SCREEN_WIDTH/2-250, GameFrame.SCREEN_HEIGHT / 2+50);
                     } else if (round == 2) {
-                        g2.drawString("ROUND 2", GameFrame.SCREEN_WIDTH / 2 - 30, GameFrame.SCREEN_HEIGHT / 2 - 10);
+                        g2.setFont(pixel);
+                        g2.setColor(Color.WHITE);
+                        g2.drawString("ROUND 2", GameFrame.SCREEN_WIDTH/2-80, GameFrame.SCREEN_HEIGHT / 2-30);
+                        g2.drawString("(Press Enter to Continue)", GameFrame.SCREEN_WIDTH/2-250, GameFrame.SCREEN_HEIGHT / 2+50);
                     }
-
-                    break;
-                case PAUSEGAME:
-                    gamePanel.setState(new PauseState(gamePanel, this));
-                    break;
-                case TUTORIAL:
+                }
+                case PAUSEGAME -> gamePanel.setState(new PauseState(gamePanel, this));
+                case TUTORIAL -> {
                     backgroundMap.draw(g2);
-                    if(tutorialState == MEETFINALBOSS){
+                    if (tutorialState == MEETFINALBOSS) {
                         particularObjectManager.draw(g2);
                     }
                     TutorialRender(g2);
-                    
-                    break;
-                case GAMEWIN:
-                case GAMEPLAY:
+                }
+                case GAMEWIN, GAMEPLAY -> {
                     backgroundMap.draw(g2);
-                    particularObjectManager.draw(g2);  
+                    particularObjectManager.draw(g2);
                     bulletManager.draw(g2);
-                    
                     g2.setColor(Color.GRAY);
                     g2.fillRect(19, 59, 102, 22);
                     g2.setColor(Color.red);
                     g2.fillRect(20, 60, megaMan.getBlood(), 20);
-                    
-                    for(int i = 0; i < numberOfLife; i++){
-                        g2.drawImage(CacheDataLoader.getInstance().getFrameImage("hearth").getImage(), 20 + i*40, 18, null);
+                    for (int i = 0; i < numberOfLife; i++) {
+                        g2.drawImage(CacheDataLoader.getInstance().getFrameImage("hearth").getImage(), 20 + i * 40, 18, null);
                     }
-                    
-                    
-                    if(state == GAMEWIN){
+                    if (state == GAMEWIN) {
                         g2.drawImage(CacheDataLoader.getInstance().getFrameImage("gamewin").getImage(), 300, 300, null);
                     }
-                    
-                    break;
-                case GAMEOVER:
-                    g2.setColor(Color.BLACK);
-                    g2.fillRect(0, 0, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT);
-                    g2.setColor(Color.WHITE);
-                    g2.drawString("GAME OVER!", 450, 300);
+                }
+                case GAMEOVER -> {
+                    Image image = Toolkit.getDefaultToolkit().getImage("data\\gameover.gif");
+                    g2.drawImage(image, 0, 0, null);
+                    g2.setFont(pixel);
+                    g2.setColor(Color.YELLOW);
+                    g2.drawString("(Press Enter to Quit)", 400, 380);
                     bgMusic.stop();
-                    break;
-
+                }
             }
             
 
@@ -318,61 +287,53 @@ public abstract class GameWorldState extends State {
 
     @Override
     public void setPressedButton(int code) {
-       switch(code){
-            
-            case KeyEvent.VK_DOWN:
-                megaMan.dick();
-                break;
-                
-            case KeyEvent.VK_RIGHT:
-                megaMan.setDirection(megaMan.RIGHT_DIR);
+        switch (code) {
+            case KeyEvent.VK_DOWN -> megaMan.dick();
+            case KeyEvent.VK_RIGHT -> {
+                megaMan.setDirection(ParticularObject.RIGHT_DIR);
                 megaMan.run();
-                break;
-                
-            case KeyEvent.VK_LEFT:
-                megaMan.setDirection(megaMan.LEFT_DIR);
+            }
+            case KeyEvent.VK_LEFT -> {
+                megaMan.setDirection(ParticularObject.LEFT_DIR);
                 megaMan.run();
-                break;
-                
-            case KeyEvent.VK_ENTER:
-                if(state == GameWorldState.INIT_GAME){
-                    if(previousState == GameWorldState.GAMEPLAY)
+            }
+            case KeyEvent.VK_ENTER -> {
+                if (state == GameWorldState.INIT_GAME) {
+                    if (previousState == GameWorldState.GAMEPLAY)
                         switchState(GameWorldState.GAMEPLAY);
                     else switchState(GameWorldState.TUTORIAL);
-                    
+
                 }
-                if(state == GameWorldState.TUTORIAL && storyTutorial >= 1){
-                    if(storyTutorial <= texts1.length - 1){
-                        storyTutorial ++;
+                if (state == GameWorldState.TUTORIAL && storyTutorial >= 1) {
+                    if (storyTutorial <= texts1.length - 1) {
+                        storyTutorial++;
                         currentSize = 1;
-                        textTutorial = texts1[storyTutorial-1];
-                    }else{
+                        textTutorial = texts1[storyTutorial - 1];
+                    } else {
                         switchState(GameWorldState.GAMEPLAY);
                     }
 
                     // for meeting boss tutorial
-                    if(tutorialState == GameWorldState.MEETFINALBOSS){
+                    if (tutorialState == GameWorldState.MEETFINALBOSS) {
                         switchState(GameWorldState.GAMEPLAY);
                     }
                 }
-                break;
-                
-            case KeyEvent.VK_SPACE:
-                megaMan.jump();
-                break;
-                
-            case KeyEvent.VK_A:
-                megaMan.attack();
-                break;
-                
-        }}
+            }
+            case KeyEvent.VK_UP -> megaMan.jump();
+            case KeyEvent.VK_SPACE -> megaMan.attack();
+        }
+    }
 
     @Override
     public void setReleasedButton(int code) {
         switch(code){
             
             case KeyEvent.VK_UP:
-                
+
+            case KeyEvent.VK_SPACE:
+
+            case KeyEvent.VK_A:
+
                 break;
                 
             case KeyEvent.VK_DOWN:
@@ -417,14 +378,6 @@ public abstract class GameWorldState extends State {
                 } else if(state == PAUSEGAME) {
                     state = lastState;
                 }
-                break;
-                
-            case KeyEvent.VK_SPACE:
-                
-                break;
-                
-            case KeyEvent.VK_A:
-                
                 break;
             case KeyEvent.VK_ESCAPE:
                 lastState = state;

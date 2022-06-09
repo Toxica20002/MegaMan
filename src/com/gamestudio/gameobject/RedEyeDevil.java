@@ -22,7 +22,7 @@ public class RedEyeDevil extends ParticularObject {
     
     private long startTimeToShoot;
     
-    private AudioClip shooting;
+    private final AudioClip shooting;
     
     public RedEyeDevil(float x, float y, GameWorldState gameWorld) {
         super(x, y, 127, 89, 0, 30, gameWorld);

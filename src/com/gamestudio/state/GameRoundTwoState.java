@@ -11,6 +11,8 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
+import static com.gamestudio.userinterface.GamePanel.*;
+
 public class GameRoundTwoState extends GameWorldState {
 
     public static final int finalBossX = 3600;
@@ -19,7 +21,7 @@ public class GameRoundTwoState extends GameWorldState {
 
     public GameRoundTwoState(GamePanel gamePanel){
         super(gamePanel);
-
+        statePanel = inGame;
         round = 2;
 
         physicalMap = new PhysicalMap(0, 0, round, this);
@@ -146,6 +148,11 @@ public class GameRoundTwoState extends GameWorldState {
                 break;
         }
 
+
+    }
+
+    @Override
+    public void setPressedMouse(int code) {
 
     }
 
