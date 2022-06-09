@@ -51,15 +51,7 @@ public class BlueFire extends Bullet{
     @Override
     public void Update() {
             // TODO Auto-generated method stub
-        if(forwardBulletAnim.isIgnoreFrame(0) || backBulletAnim.isIgnoreFrame(0))
-            setPosX(getPosX() + getSpeedX());
-        ParticularObject object = getGameWorld().particularObjectManager.getCollisionWidthEnemyObject(this);
-        if(object!=null && object.getState() == ALIVE){
-            setBlood(0);
-            object.setBlood(object.getBlood() - getDamage());
-            object.setState(BEHURT);
-            System.out.println("Bullet set behurt for enemy");
-        }
+        super.Update();
     }
 
     @Override

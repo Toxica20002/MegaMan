@@ -65,16 +65,25 @@ public class RobotR extends ParticularObject {
         
         if(getPosX() - getGameWorld().megaMan.getPosX() > 0) setDirection(ParticularObject.RIGHT_DIR);
         else setDirection(ParticularObject.LEFT_DIR);
+
+        Rectangle rectRightWall = getBoundForCollisionWithMap();
+        rectRightWall.x += 30;
+        Rectangle rectLeftWall = getBoundForCollisionWithMap();
+        rectLeftWall.x -= 30;
+        Rectangle rectLandWall = getBoundForCollisionWithMap();
+        rectLandWall.y += 30;
+        Rectangle rectTopWall = getBoundForCollisionWithMap();
+        rectTopWall.y -= 30;
         
-        if(getPosX() < x1)
+        if(getPosX() < x1 || getGameWorld().physicalMap.haveCollisionWithLeftWall(rectLeftWall)!=null)
             setSpeedX(1);
-        else if(getPosX() > x2)
+        else if(getPosX() > x2 || getGameWorld().physicalMap.haveCollisionWithRightWall(rectRightWall)!=null)
             setSpeedX(-1);
         setPosX(getPosX() + getSpeedX());
         
-        if(getPosY() < y1)
+        if(getPosY() < y1 || getGameWorld().physicalMap.haveCollisionWithTop(rectTopWall)!=null)
             setSpeedY(1);
-        else if(getPosY() > y2)
+        else if(getPosY() > y2 || getGameWorld().physicalMap.haveCollisionWithLand(rectLandWall)!=null)
             setSpeedY(-1);
         setPosY(getPosY() + getSpeedY());
         

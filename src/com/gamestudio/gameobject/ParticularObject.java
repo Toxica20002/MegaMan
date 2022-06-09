@@ -164,8 +164,8 @@ public abstract class ParticularObject extends GameObject {
         return bound;
     }
 
-    public void beHurt(int damgeEat){
-        setBlood(getBlood() - damgeEat);
+    public void beHurt(int damageEat){
+        setBlood(getBlood() - damageEat);
         state = BEHURT;
         hurtingCallback();
     }

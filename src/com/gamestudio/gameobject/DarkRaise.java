@@ -70,9 +70,13 @@ public class DarkRaise extends ParticularObject{
     
     public void Update(){
         super.Update();
-        if(getPosX() < x1)
+        Rectangle rectRightWall = getBoundForCollisionWithMap();
+        rectRightWall.x += 30;
+        Rectangle rectLeftWall = getBoundForCollisionWithMap();
+        rectLeftWall.x -= 30;
+        if(getPosX() < x1 || getGameWorld().physicalMap.haveCollisionWithLeftWall(rectLeftWall)!=null)
             setSpeedX(1);
-        else if(getPosX() > x2)
+        else if(getPosX() > x2 || getGameWorld().physicalMap.haveCollisionWithRightWall(rectRightWall)!=null)
             setSpeedX(-1);
         setPosX(getPosX() + getSpeedX());
         
@@ -108,7 +112,7 @@ public class DarkRaise extends ParticularObject{
                 }
             }
         }
-        //drawBoundForCollisionWithEnemy(g2);
+//        drawBoundForCollisionWithMap(g2);
     }
     
 }
