@@ -31,14 +31,14 @@ public class PauseState extends State{
         this.gamePanel= gamePanel;
 
         buttons = new newButton[NUMBER_OF_BUTTON];
-        buttons[0] = new newRectangleButton(758, 150, "data\\resume_active.png", "data\\resume_inactive.png");
-        buttons[1] = new newRectangleButton(758, 250, "data\\minus_active.png", "data\\minus_inactive.png");
-        buttons[2] = new newRectangleButton(958, 250, "data\\plus_active.png", "data\\plus_inactive.png");
-        buttons[3] = new newRectangleButton(1039, 250, "data\\mute_active.png", "data\\mute_inactive.png");
-        buttons[4] = new newRectangleButton(758, 350, "data\\minus_active.png", "data\\minus_inactive.png");
-        buttons[5] = new newRectangleButton(958, 350, "data\\plus_active.png", "data\\plus_inactive.png");
-        buttons[6] = new newRectangleButton(1039, 350, "data\\mute_active.png", "data\\mute_inactive.png");
-        buttons[7] = new newRectangleButton(758, 450, "data\\quit_active.png", "data\\quit_inactive.png");
+        buttons[0] = new newRectangleButton(350, 520, "data\\resume_active.png", "data\\resume_inactive.png");
+        buttons[1] = new newRectangleButton(758, 220, "data\\minus_active.png", "data\\minus_inactive.png");
+        buttons[2] = new newRectangleButton(958, 220, "data\\plus_active.png", "data\\plus_inactive.png");
+        buttons[3] = new newRectangleButton(1039, 220, "data\\mute_active.png", "data\\mute_inactive.png");
+        buttons[4] = new newRectangleButton(758, 420, "data\\minus_active.png", "data\\minus_inactive.png");
+        buttons[5] = new newRectangleButton(958, 420, "data\\plus_active.png", "data\\plus_inactive.png");
+        buttons[6] = new newRectangleButton(1039, 420, "data\\mute_active.png", "data\\mute_inactive.png");
+        buttons[7] = new newRectangleButton(760, 520, "data\\quit_active.png", "data\\quit_inactive.png");
     }
 
     @Override
@@ -60,22 +60,22 @@ public class PauseState extends State{
         graphicsPaint.drawImage(image, 0, 0, null);
 
         graphicsPaint.setColor(Color.CYAN);
-        graphicsPaint.fillRect(838, 250, 120, 80);
-        graphicsPaint.fillRect(340, 250, 400, 80);
+        graphicsPaint.fillRect(838, 220, 120, 80);
+        graphicsPaint.fillRect(758, 120, 400, 80);
 
-        graphicsPaint.fillRect(838, 350, 120, 80);
-        graphicsPaint.fillRect(340, 350, 400, 80);
+        graphicsPaint.fillRect(838, 420, 120, 80);
+        graphicsPaint.fillRect(758, 320, 400, 80);
 
         for (newButton bt : buttons) {
             bt.draw(graphicsPaint);
         }
         graphicsPaint.setColor(Color.black);
         graphicsPaint.setFont(pixel);
-        graphicsPaint.drawString(String.valueOf((int)Math.round(previous.bgMusic.getVolume() * 5)), 888, 310);
-        graphicsPaint.drawString("MUSIC VOLUME: ", 360, 310);
+        graphicsPaint.drawString(String.valueOf((int)Math.round(previous.bgMusic.getVolume() * 5)), 888, 280);
+        graphicsPaint.drawString("MUSIC VOLUME: ", 800, 180);
 
-        graphicsPaint.drawString(String.valueOf((int)Math.round(previous.getParticularObjectManager().getParticularObjects().get(0).getVolume() * 5)), 888, 410);
-        graphicsPaint.drawString("SFX VOLUME: ", 360, 410);
+        graphicsPaint.drawString(String.valueOf((int)Math.round(previous.getParticularObjectManager().getParticularObjects().get(0).getVolume() * 5)), 888, 480);
+        graphicsPaint.drawString("SFX VOLUME: ", 800, 380);
     }
 
     @Override
@@ -101,6 +101,7 @@ public class PauseState extends State{
 
     private void actionMenu() {
         if(buttons[0].isInButton(mouseX, mouseY)){
+            statePanel = inGame;
             previous.setState(previous.getLastState());
             previous.setLastState(previous.getState());
             gamePanel.setState(previous);

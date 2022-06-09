@@ -29,7 +29,7 @@ public class RuleState extends State {
         statePanel = outGame;
         bufferedImage = new BufferedImage(GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
         buttons = new newButton[NUMBER_OF_BUTTON];
-        buttons[0] = new newRectangleButton(525, 480, "data\\return_active.png", "data\\return_inactive.png");
+        buttons[0] = new newRectangleButton(50, 520, "data\\return_active.png", "data\\return_inactive.png");
     }
 
     @Override
