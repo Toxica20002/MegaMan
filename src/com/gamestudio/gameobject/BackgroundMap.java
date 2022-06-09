@@ -31,7 +31,17 @@ public class BackgroundMap extends GameObject {
 
     @Override
     public void Update() {}
-    
+
+    @Override
+    public double getVolume() {
+        return 0;
+    }
+
+    @Override
+    public void setVolume(double deltaVolume) {
+
+    }
+
     public void draw(Graphics2D g2){
         
         Camera camera = getGameWorld().camera;

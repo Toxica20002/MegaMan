@@ -57,7 +57,17 @@ public class SmallRedGun extends ParticularObject{
             startTimeToShoot = System.nanoTime();
         }
     }
-    
+
+    @Override
+    public double getVolume() {
+        return 0;
+    }
+
+    @Override
+    public void setVolume(double deltaVolume) {
+
+    }
+
     @Override
     public Rectangle getBoundForCollisionWithEnemy() {
         Rectangle rect = getBoundForCollisionWithMap();

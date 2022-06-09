@@ -103,6 +103,19 @@ public class MegaMan extends Human {
     }
 
     @Override
+    public double getVolume() {
+        return shooting1.getVolume();
+    }
+
+    @Override
+    public void setVolume(double deltaVolume) {
+        shooting1.setVolume(deltaVolume);
+        hurtingSound.setVolume(deltaVolume);
+        shooting1.stop();
+        hurtingSound.stop();
+    }
+
+    @Override
     public Rectangle getBoundForCollisionWithEnemy() {
         // TODO Auto-generated method stub
         Rectangle rect = getBoundForCollisionWithMap();

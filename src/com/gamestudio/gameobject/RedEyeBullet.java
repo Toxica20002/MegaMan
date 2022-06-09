@@ -45,6 +45,16 @@ public class RedEyeBullet extends Bullet{
     }
 
     @Override
+    public double getVolume() {
+        return 0;
+    }
+
+    @Override
+    public void setVolume(double deltaVolume) {
+
+    }
+
+    @Override
     public void attack() {}
 
 }

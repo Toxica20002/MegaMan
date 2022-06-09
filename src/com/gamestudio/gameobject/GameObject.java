@@ -36,5 +36,7 @@ public abstract class GameObject {
 	}
 	
 	public abstract void Update();
-	
+
+	public abstract double getVolume();
+	public abstract void setVolume(double deltaVolume);
 }

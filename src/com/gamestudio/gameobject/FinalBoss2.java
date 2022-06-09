@@ -110,6 +110,16 @@ public class FinalBoss2 extends Human {
 
     }
 
+    @Override
+    public double getVolume() {
+        return 0;
+    }
+
+    @Override
+    public void setVolume(double deltaVolume) {
+
+    }
+
     private void changeSpeedY() {
         if (System.currentTimeMillis() % 2 == 0) {
             setSpeedY(-getSpeedX());

@@ -56,7 +56,18 @@ public class RedEyeDevil extends ParticularObject {
             startTimeToShoot = System.nanoTime();
         }
     }
-    
+
+    @Override
+    public double getVolume() {
+        return shooting.getVolume();
+    }
+
+    @Override
+    public void setVolume(double deltaVolume) {
+        shooting.setVolume(deltaVolume);
+        shooting.stop();
+    }
+
     @Override
     public Rectangle getBoundForCollisionWithEnemy() {
         Rectangle rect = getBoundForCollisionWithMap();

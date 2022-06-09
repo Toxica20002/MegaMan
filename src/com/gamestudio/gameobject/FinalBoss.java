@@ -96,7 +96,17 @@ public class FinalBoss extends Human {
         }
         
     }
-    
+
+    @Override
+    public double getVolume() {
+        return 0;
+    }
+
+    @Override
+    public void setVolume(double deltaVolume) {
+
+    }
+
     @Override
     public void run() {
         

@@ -15,7 +15,7 @@ import java.awt.image.BufferedImage;
 import static com.gamestudio.userinterface.GamePanel.*;
 
 public class PauseState extends State{
-    protected final int NUMBER_OF_BUTTON = 5;
+    protected final int NUMBER_OF_BUTTON = 8;
     protected final GameWorldState previous;
     protected BufferedImage bufferedImage;
     GamePanel gamePanel;
@@ -31,12 +31,14 @@ public class PauseState extends State{
         this.gamePanel= gamePanel;
 
         buttons = new newButton[NUMBER_OF_BUTTON];
-        buttons[0] = new newRectangleButton(758, 250, "data\\resume_active.png", "data\\resume_inactive.png");
-        buttons[1] = new newRectangleButton(758, 350, "data\\minus_active.png", "data\\minus_inactive.png");
-        buttons[2] = new newRectangleButton(958, 350, "data\\plus_active.png", "data\\plus_inactive.png");
-        buttons[3] = new newRectangleButton(758, 450, "data\\quit_active.png", "data\\quit_inactive.png");
-        buttons[4] = new newRectangleButton(1039, 350, "data\\mute_active.png", "data\\mute_inactive.png");
-
+        buttons[0] = new newRectangleButton(758, 150, "data\\resume_active.png", "data\\resume_inactive.png");
+        buttons[1] = new newRectangleButton(758, 250, "data\\minus_active.png", "data\\minus_inactive.png");
+        buttons[2] = new newRectangleButton(958, 250, "data\\plus_active.png", "data\\plus_inactive.png");
+        buttons[3] = new newRectangleButton(1039, 250, "data\\mute_active.png", "data\\mute_inactive.png");
+        buttons[4] = new newRectangleButton(758, 350, "data\\minus_active.png", "data\\minus_inactive.png");
+        buttons[5] = new newRectangleButton(958, 350, "data\\plus_active.png", "data\\plus_inactive.png");
+        buttons[6] = new newRectangleButton(1039, 350, "data\\mute_active.png", "data\\mute_inactive.png");
+        buttons[7] = new newRectangleButton(758, 450, "data\\quit_active.png", "data\\quit_inactive.png");
     }
 
     @Override
@@ -58,16 +60,22 @@ public class PauseState extends State{
         graphicsPaint.drawImage(image, 0, 0, null);
 
         graphicsPaint.setColor(Color.CYAN);
+        graphicsPaint.fillRect(838, 250, 120, 80);
+        graphicsPaint.fillRect(340, 250, 400, 80);
+
         graphicsPaint.fillRect(838, 350, 120, 80);
-        graphicsPaint.fillRect(540, 350, 200, 80);
+        graphicsPaint.fillRect(340, 350, 400, 80);
 
         for (newButton bt : buttons) {
             bt.draw(graphicsPaint);
         }
         graphicsPaint.setColor(Color.black);
         graphicsPaint.setFont(pixel);
-        graphicsPaint.drawString(String.valueOf((int)Math.ceil(previous.bgMusic.getVolume() * 5)), 888, 410);
-        graphicsPaint.drawString("VOLUME: ", 560, 410);
+        graphicsPaint.drawString(String.valueOf((int)Math.round(previous.bgMusic.getVolume() * 5)), 888, 310);
+        graphicsPaint.drawString("MUSIC VOLUME: ", 360, 310);
+
+        graphicsPaint.drawString(String.valueOf((int)Math.round(previous.getParticularObjectManager().getParticularObjects().get(0).getVolume() * 5)), 888, 410);
+        graphicsPaint.drawString("SFX VOLUME: ", 360, 410);
     }
 
     @Override
@@ -97,7 +105,7 @@ public class PauseState extends State{
             previous.setLastState(previous.getState());
             gamePanel.setState(previous);
         }
-        else if(buttons[3].isInButton(mouseX, mouseY)){
+        else if(buttons[7].isInButton(mouseX, mouseY)){
             previous.setState(GameWorldState.GAMEOVER);
             previous.setLastState(previous.getState());
             gamePanel.setState(previous);
@@ -126,10 +134,19 @@ public class PauseState extends State{
             previous.bgMusic.stop();
             previous.bgMusic.play();
         }
-        else if(buttons[4].isInButton(mouseX, mouseY)){
+        else if(buttons[3].isInButton(mouseX, mouseY)){
             previous.bgMusic.stop();
             previous.bgMusic.setVolume(0.0f);
             previous.bgMusic.play();
+        }
+        else if(buttons[4].isInButton(mouseX, mouseY)){
+            previous.decreaseVolume();
+        }
+        else if(buttons[5].isInButton(mouseX, mouseY)){
+            previous.increaseVolume();
+        }
+        else if(buttons[6].isInButton(mouseX, mouseY)){
+            previous.muteVolume();
         }
     }
 }

@@ -19,6 +19,12 @@ import javafx.scene.media.AudioClip;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
+
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 
 public abstract class GameWorldState extends State {
@@ -51,6 +57,11 @@ public abstract class GameWorldState extends State {
     public int openIntroGameY = 0;
     public int state = INIT_GAME;
     public int previousState = state;
+
+    public ParticularObjectManager getParticularObjectManager() {
+        return particularObjectManager;
+    }
+
     public int tutorialState = INTROGAME;
     
     public int storyTutorial = 0;
@@ -104,7 +115,7 @@ public abstract class GameWorldState extends State {
         
         particularObjectManager = new ParticularObjectManager(this);
         particularObjectManager.addObject(megaMan);
-        
+
         initEnemies();
 
         bgMusic = CacheDataLoader.getInstance().getSound("bgmusic");
@@ -173,7 +184,34 @@ public abstract class GameWorldState extends State {
                 break;
         }
     }
-    
+
+    protected void increaseVolume(){
+        List<ParticularObject> newParticularObjects = new ArrayList<>();
+        for(ParticularObject it:  particularObjectManager.getParticularObjects()){
+            it.setVolume(min(it.getVolume()+0.2f, 1.0f));
+            newParticularObjects.add(it);
+        }
+        particularObjectManager.setParticularObjects(newParticularObjects);
+    }
+
+    protected void decreaseVolume(){
+        List<ParticularObject> newParticularObjects = new ArrayList<>();
+        for(ParticularObject it:  particularObjectManager.getParticularObjects()){
+            it.setVolume(max(it.getVolume()-0.2f, 0.0f));
+            newParticularObjects.add(it);
+        }
+        particularObjectManager.setParticularObjects(newParticularObjects);
+    }
+
+    protected void muteVolume(){
+        List<ParticularObject> newParticularObjects = new ArrayList<>();
+        for(ParticularObject it:  particularObjectManager.getParticularObjects()){
+            it.setVolume(0.0f);
+            newParticularObjects.add(it);
+        }
+        particularObjectManager.setParticularObjects(newParticularObjects);
+    }
+
     protected void drawString(Graphics2D g2, String text, int x, int y){
         for(String str : text.split("\n"))
             g2.drawString(str, x, y+=g2.getFontMetrics().getHeight());
@@ -193,10 +231,13 @@ public abstract class GameWorldState extends State {
                 if(storyTutorial >= 1){
                     g2.drawImage(avatar.getImage(), 600, 350, null);
                     g2.setColor(Color.BLUE);
-                    g2.fillRect(280, 450, 350, 80);
+                    g2.fillRect(280, 450, 350, 100);
                     g2.setColor(Color.WHITE);
                     String text = textTutorial.substring(0, currentSize - 1);
+                    g2.setFont(pixel.deriveFont(pixel.getSize() * 0.3f));
                     drawString(g2, text, 290, 480);
+                    g2.setColor(Color.YELLOW);
+                    drawString(g2, "(Press Enter to Continue)", 290, 530);
                 }
                 
                 break;
@@ -208,6 +249,11 @@ public abstract class GameWorldState extends State {
                 g2.setColor(Color.BLACK);
                 g2.fillRect(0, y1, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT/2);
                 g2.fillRect(0, y2, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT/2);
+                if(storyTutorial >= 1){
+                    g2.setFont(pixel);
+                    g2.setColor(Color.YELLOW);
+                    drawString(g2, "(Press Enter to Continue)", GameFrame.SCREEN_WIDTH/2-250, 550);
+                }
                 break;
         }
     }

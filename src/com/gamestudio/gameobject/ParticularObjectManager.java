@@ -18,7 +18,15 @@ public class ParticularObjectManager {
         this.gameWorld = gameWorld;
         
     }
-    
+
+    public List<ParticularObject> getParticularObjects() {
+        return particularObjects;
+    }
+
+    public void setParticularObjects(List<ParticularObject> particularObjects) {
+        this.particularObjects = particularObjects;
+    }
+
     public GameWorldState getGameWorld(){
         return gameWorld;
     }

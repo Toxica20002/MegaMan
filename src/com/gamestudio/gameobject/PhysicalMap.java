@@ -35,7 +35,17 @@ public class PhysicalMap extends GameObject{
     @Override
     public void Update() {}
 
-    
+    @Override
+    public double getVolume() {
+        return 0;
+    }
+
+    @Override
+    public void setVolume(double deltaVolume) {
+
+    }
+
+
     public Rectangle haveCollisionWithTop(Rectangle rect){
 
         int posX1 = rect.x/tileSize;

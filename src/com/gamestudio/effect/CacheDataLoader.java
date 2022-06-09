@@ -8,6 +8,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Hashtable;
 import javax.imageio.ImageIO;
 
@@ -30,7 +32,6 @@ public class CacheDataLoader {
     private String physmapfile = "data/phys_map.txt";
     private String backgroundmapfile = "data/background_map.txt";
     private String soundfile = "data/sounds.txt";
-    
     private Hashtable<String, FrameImage> frameImages; 
     private Hashtable<String, Animation> animations;
     private Hashtable<String, AudioClip> sounds;

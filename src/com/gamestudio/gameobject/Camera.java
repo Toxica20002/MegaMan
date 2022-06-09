@@ -51,6 +51,16 @@ public class Camera extends GameObject {
     
     }
 
+    @Override
+    public double getVolume() {
+        return 0;
+    }
+
+    @Override
+    public void setVolume(double deltaVolume) {
+
+    }
+
     public float getWidthView() {
         return widthView;
     }
