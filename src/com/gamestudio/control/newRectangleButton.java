@@ -1,14 +1,13 @@
 package com.gamestudio.control;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
 
 import static com.gamestudio.userinterface.GamePanel.*;
 
 public class newRectangleButton extends newButton{
 
-    public newRectangleButton(int posX, int posY, String activeImageLink, String inactiveImageLink, int buttonId) {
-        super(posX, posY, activeImageLink, inactiveImageLink, buttonId);
+    public newRectangleButton(int posX, int posY, String activeImageLink, String inactiveImageLink) {
+        super(posX, posY, activeImageLink, inactiveImageLink);
     }
 
     @Override

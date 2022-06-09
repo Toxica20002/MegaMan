@@ -16,27 +16,23 @@ import java.awt.image.BufferedImage;
 
 import static com.gamestudio.userinterface.GamePanel.*;
 
-/**
- *
- * @author phamn
- */
 public class MenuState extends State {
 
-    public final int NUMBER_OF_BUTTON = 3;
+    protected final int NUMBER_OF_BUTTON = 3;
     private BufferedImage bufferedImage;
     Graphics graphicsPaint;
     private final newButton[] buttons;
-
+    protected long startQuitTime;
+    protected boolean quitState = false;
     public MenuState(GamePanel gamePanel) {
         super(gamePanel);
         statePanel = outGame;
         bufferedImage = new BufferedImage(GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
 
         buttons = new newButton[NUMBER_OF_BUTTON];
-        buttons[0] = new newRectangleButton(200, 250, "data\\start_active.png", "data\\start_inactive.png", 0);
-        buttons[1] = new newRectangleButton(200, 350, "data\\rules_active.png", "data\\rules_inactive.png", 1);
-        buttons[2] = new newRectangleButton(200, 450, "data\\quit_active.png", "data\\quit_inactive.png", 2);
-
+        buttons[0] = new newRectangleButton(200, 250, "data\\start_active.png", "data\\start_inactive.png");
+        buttons[1] = new newRectangleButton(200, 350, "data\\rules_active.png", "data\\rules_inactive.png");
+        buttons[2] = new newRectangleButton(200, 450, "data\\quit_active.png", "data\\quit_inactive.png");
     }
 
     @Override
@@ -55,12 +51,20 @@ public class MenuState extends State {
             graphicsPaint = bufferedImage.getGraphics();
             return;
         }
-        Image image = Toolkit.getDefaultToolkit().getImage("data\\menu_bg.gif");
-        graphicsPaint.drawImage(image, 0, 0, null);
+        if(!quitState) {
+            Image image = Toolkit.getDefaultToolkit().getImage("data\\menu_bg.gif");
+            graphicsPaint.drawImage(image, 0, 0, null);
 
 
-        for (newButton bt : buttons) {
-            bt.draw(graphicsPaint);
+            for (newButton bt : buttons) {
+                bt.draw(graphicsPaint);
+            }
+        }
+        else {
+            if(System.currentTimeMillis()-startQuitTime >= 4000)
+                System.exit(0);
+            Image image = Toolkit.getDefaultToolkit().getImage("data\\thanks.gif");
+            graphicsPaint.drawImage(image, 0, 0, null);
         }
     }
 
@@ -89,7 +93,9 @@ public class MenuState extends State {
             gamePanel.setState(new RoundState(gamePanel));
         else if(buttons[1].isInButton(mouseX, mouseY))
             gamePanel.setState(new RuleState(gamePanel));
-        else if(buttons[2].isInButton(mouseX, mouseY))
-            System.exit(0);
+        else if(buttons[2].isInButton(mouseX, mouseY)) {
+            startQuitTime = System.currentTimeMillis();
+            quitState = true;
+        }
     }
 }

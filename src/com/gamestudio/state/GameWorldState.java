@@ -15,8 +15,8 @@ import com.gamestudio.userinterface.GamePanel;
 
 
 import javafx.scene.media.AudioClip;
-import java.awt.Color;
-import java.awt.Graphics2D;
+
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
@@ -232,9 +232,15 @@ public abstract class GameWorldState extends State {
                     g2.fillRect(0, 0, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT);
                     g2.setColor(Color.WHITE);
                     if (round == 1) {
-                        g2.drawString("ROUND 1", GameFrame.SCREEN_WIDTH / 2 - 30, GameFrame.SCREEN_HEIGHT / 2 - 10);
+                        g2.setFont(pixel);
+                        g2.setColor(Color.WHITE);
+                        g2.drawString("ROUND 1", GameFrame.SCREEN_WIDTH/2-80, GameFrame.SCREEN_HEIGHT / 2-30);
+                        g2.drawString("(Press Enter to Continue)", GameFrame.SCREEN_WIDTH/2-250, GameFrame.SCREEN_HEIGHT / 2+50);
                     } else if (round == 2) {
-                        g2.drawString("ROUND 2", GameFrame.SCREEN_WIDTH / 2 - 30, GameFrame.SCREEN_HEIGHT / 2 - 10);
+                        g2.setFont(pixel);
+                        g2.setColor(Color.WHITE);
+                        g2.drawString("ROUND 2", GameFrame.SCREEN_WIDTH/2-80, GameFrame.SCREEN_HEIGHT / 2-30);
+                        g2.drawString("(Press Enter to Continue)", GameFrame.SCREEN_WIDTH/2-250, GameFrame.SCREEN_HEIGHT / 2+50);
                     }
                 }
                 case PAUSEGAME -> gamePanel.setState(new PauseState(gamePanel, this));
@@ -261,10 +267,11 @@ public abstract class GameWorldState extends State {
                     }
                 }
                 case GAMEOVER -> {
-                    g2.setColor(Color.BLACK);
-                    g2.fillRect(0, 0, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT);
-                    g2.setColor(Color.WHITE);
-                    g2.drawString("GAME OVER!", 450, 300);
+                    Image image = Toolkit.getDefaultToolkit().getImage("data\\gameover.gif");
+                    g2.drawImage(image, 0, 0, null);
+                    g2.setFont(pixel);
+                    g2.setColor(Color.YELLOW);
+                    g2.drawString("(Press Enter to Quit)", 400, 380);
                     bgMusic.stop();
                 }
             }

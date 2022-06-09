@@ -23,7 +23,7 @@ import static com.gamestudio.userinterface.GamePanel.*;
 
 public class RoundState extends State {
 
-    public final int NUMBER_OF_BUTTON = 3;
+    protected final int NUMBER_OF_BUTTON = 3;
     private BufferedImage bufferedImage;
     Graphics graphicsPaint;
 
@@ -35,9 +35,9 @@ public class RoundState extends State {
         bufferedImage = new BufferedImage(GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
 
         buttons = new newButton[NUMBER_OF_BUTTON];
-        buttons[0] = new newRectangleButton(100, 250, "data\\round1_active.png", "data\\round1_inactive.png", 0);
-        buttons[1] = new newRectangleButton(100, 350, "data\\round2_active.png", "data\\round2_inactive.png", 1);
-        buttons[2] = new newRectangleButton(100, 450, "data\\return_active.png", "data\\return_inactive.png", 2);
+        buttons[0] = new newRectangleButton(100, 250, "data\\round1_active.png", "data\\round1_inactive.png");
+        buttons[1] = new newRectangleButton(100, 350, "data\\round2_active.png", "data\\round2_inactive.png");
+        buttons[2] = new newRectangleButton(100, 450, "data\\return_active.png", "data\\return_inactive.png");
 
     }
 
@@ -86,9 +86,9 @@ public class RoundState extends State {
     private void actionMenu() {
 
         if(buttons[0].isInButton(mouseX, mouseY))
-            gamePanel.setState(new FirstLoadingPage(gamePanel, 1));
+            gamePanel.setState(new RandomLoadingPage(gamePanel, 1));
         else if(buttons[1].isInButton(mouseX, mouseY))
-            gamePanel.setState(new GameRoundTwoState(gamePanel));
+            gamePanel.setState(new RandomLoadingPage(gamePanel, 2));
         else if(buttons[2].isInButton(mouseX, mouseY))
             gamePanel.setState(new MenuState(gamePanel));
     }
