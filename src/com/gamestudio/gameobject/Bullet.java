@@ -22,6 +22,13 @@ public abstract class Bullet extends ParticularObject {
             object.beHurt(getDamage());
             System.out.println("Bullet set behurt for enemy");
         }
+
+        if(getGameWorld().physicalMap.haveCollisionWithLeftWall(getBoundForCollisionWithMap())!=null ||
+                getGameWorld().physicalMap.haveCollisionWithRightWall(getBoundForCollisionWithMap())!=null ||
+                getGameWorld().physicalMap.haveCollisionWithTop(getBoundForCollisionWithMap())!=null ||
+                getGameWorld().physicalMap.haveCollisionWithLand(getBoundForCollisionWithMap())!=null){
+            setState(DEATH);
+        }
     }
     
 }
