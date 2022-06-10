@@ -309,7 +309,10 @@ public abstract class GameWorldState extends State {
                         g2.drawImage(CacheDataLoader.getInstance().getFrameImage("hearth").getImage(), 20 + i * 40, 18, null);
                     }
                     if (state == GAMEWIN) {
-                        g2.drawImage(CacheDataLoader.getInstance().getFrameImage("gamewin").getImage(), 300, 300, null);
+                        g2.drawImage(CacheDataLoader.getInstance().getFrameImage("gamewin").getImage(), 420, GameFrame.SCREEN_HEIGHT/2-100, null);
+                        g2.setFont(pixel);
+                        g2.setColor(Color.YELLOW);
+                        g2.drawString("(Press Enter to Continue)", GameFrame.SCREEN_WIDTH/2-210, GameFrame.SCREEN_HEIGHT / 2+20);
                     }
                 }
                 case GAMEOVER -> {

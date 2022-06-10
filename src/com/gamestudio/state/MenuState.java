@@ -7,6 +7,7 @@ package com.gamestudio.state;
 
 import com.gamestudio.control.newButton;
 import com.gamestudio.control.newRectangleButton;
+import com.gamestudio.effect.CacheDataLoader;
 import com.gamestudio.userinterface.GameFrame;
 import com.gamestudio.userinterface.GamePanel;
 
@@ -54,7 +55,6 @@ public class MenuState extends State {
         if(!quitState) {
             Image image = Toolkit.getDefaultToolkit().getImage("data\\menu_bg.gif");
             graphicsPaint.drawImage(image, 0, 0, null);
-
 
             for (newButton bt : buttons) {
                 bt.draw(graphicsPaint);
